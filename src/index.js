@@ -17,9 +17,19 @@ const createProject = (name) => {
     return { name, tasks, addTask }
 }
 
-let newTask = createTask('Wash the dishes.');
-console.log(newTask);
+const main = (() => {
+    const configureLocalStorage = () => {
+        if (!localStorage.getItem('storist')) {
+            localStorage.setItem('storist', '[]');
+        }
+    }
 
-let newProject = createProject('Chores');
-newProject.addTask(newTask);
-console.log(newProject);
+    configureLocalStorage();
+})();
+
+// let newTask = createTask('Wash the dishes.');
+// console.log(newTask);
+
+// let newProject = createProject('Chores');
+// newProject.addTask(newTask);
+// console.log(newProject);
