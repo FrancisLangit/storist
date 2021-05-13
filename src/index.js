@@ -3,8 +3,23 @@ import './styles/style.css'
 
 import './bootstrap.bundle.min.js';
 
-console.log('Hello!');
+const createTask = (text) => {
+    return { text }
+}
 
-let testP = document.createElement('p');
-testP.textContent = 'testP';
-document.body.appendChild(testP);
+const createProject = (name) => {
+    let tasks = []
+    
+    const addTask = (task) => {
+        tasks.push(task);
+    }
+
+    return { name, tasks, addTask }
+}
+
+let newTask = createTask('Wash the dishes.');
+console.log(newTask);
+
+let newProject = createProject('Chores');
+newProject.addTask(newTask);
+console.log(newProject);
