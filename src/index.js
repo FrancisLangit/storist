@@ -32,15 +32,25 @@ const userInterfaceConfig = (() => {
         return taskNode;
     }
 
+    const _updateTasksDiv = (arrayOfTaskObjects) => {
+        /**Erases inner HTML of #tasks div and fills it with nodes made out
+         * of tasks from a passed array.
+         * 
+         * Args:
+         *  arrayOfTaskObjects (array) : Array holding tasks objects to be 
+         *      made nodes out of.*/
+        let tasksDiv = document.querySelector('#tasks');
+        tasksDiv.innerHTML = '';
+        for (let i = 0; i < arrayOfTaskObjects.length; i++) {
+            tasksDiv.append(_createTaskNode(arrayOfTaskObjects[i]));
+        }
+    }
+
     const showInbox = () => {
         /**Updates the #tasks div to show only those tasks that are in the 
          * user's inbox.*/
-        let tasksDiv = document.querySelector('#tasks');
-        tasksDiv.innerHTML = '';
-        let inbox = (localStorageConfig.getLocalStorageAsObject().inbox);
-        for (let i = 0; i < inbox.length; i++) {
-            tasksDiv.append(_createTaskNode(inbox[i]));
-        }
+        let inbox = localStorageConfig.getLocalStorageAsObject().inbox;
+        _updateTasksDiv(inbox);
     }
 
     const showProject = (targetProjectName) => {
@@ -48,14 +58,10 @@ const userInterfaceConfig = (() => {
          * project.
          * 
          * Args:
-         *  targetProjectName (string) : Name of the project holding tasks to 
+         *  targetProjectName (string) : Name of the project holding tasks to
          *      be displayed.*/        
-        let tasksDiv = document.querySelector('#tasks');
-        tasksDiv.innerHTML = '';
         let project = localStorageConfig.getProjectObject(targetProjectName);
-        for (let i = 0; i < project['tasks'].length; i++) {
-            tasksDiv.append(_createTaskNode(project['tasks'][i]));
-        }
+        _updateTasksDiv(project.tasks);
     }
 
     return { showInbox, showProject };
