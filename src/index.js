@@ -55,7 +55,7 @@ const localStorageConfiguration = (() => {
     }
 
     const getLocalStorageAsObject = () => {
-        /**Returns localStorage 'storist' string object.*/
+        /**Returns localStorage 'storist' string as object.*/
         _checkLocalStorage();
         return JSON.parse(localStorage.getItem('storist'));
     }
@@ -66,24 +66,29 @@ const localStorageConfiguration = (() => {
          * Args:
          *  newProjectObject (object) : Project object to be pushed.*/
         let currentLocalStorage = getLocalStorageAsObject();
-        let currentProjectsArray = currentLocalStorage['projects'];
-        currentProjectsArray.push(newProjectObject);
+        let projects = currentLocalStorage['projects'];
+        projects.push(newProjectObject);
         _updateLocalStorage(currentLocalStorage);
     }
 
     const pushTask = (newTaskObject, targetProjectName) => {
-        /**Pushes a new task into a targeted project object's tasks array.
+        /**Pushes a new task into a targeted project object's tasks array. If
+         * no project indicated, pushes task to user's inbox by default.
          * 
          * Args:
          *  newTaskObject (object) : Task object to be pushed.
          *  targetProjectName (string) : Name of the target project where
          *      newTaskObject will be pushed to.*/
         let currentLocalStorage = getLocalStorageAsObject();
-        let currentProjectsArray = currentLocalStorage['projects'];
-        let targetProjectObject = currentProjectsArray.find(projectObj => {
-            return projectObj.name === targetProjectName;
-        });
-        targetProjectObject.tasks.push(newTaskObject);
+        if (!targetProjectName) {
+            currentLocalStorage['inbox'].push(newTaskObject);
+        } else {
+            let projects = currentLocalStorage['projects'];
+            let targetProjectObject = projects.find(projectObj => {
+                return projectObj.name === targetProjectName;
+            });
+            targetProjectObject['tasks'].push(newTaskObject);
+        }
         _updateLocalStorage(currentLocalStorage);
     }
 
@@ -95,7 +100,7 @@ localStorageConfiguration.pushProject(newProject);
 console.log(localStorage['storist']);
 
 let newTask = createTask('Buy groceries.');
-localStorageConfiguration.pushTask(newTask, 'Personal');
+localStorageConfiguration.pushTask(newTask);
 console.log(localStorage['storist']);
 
 localStorage.clear();
