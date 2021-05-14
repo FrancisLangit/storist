@@ -32,6 +32,19 @@ const localStorageConfig = (() => {
         return JSON.parse(localStorage.getItem('storist'));
     }
 
+    const getProjectObject = (targetProjectName) => {
+        /**Returns a target locally stored project object in user's 
+         * localStorage 'storist'.
+         * 
+         * Args:
+         *  targetProjectName (string) : Name of the project object to be 
+         *      returned.*/
+        let projectObjects = getLocalStorageAsObject().projects;
+        return projectObjects.find(projectObject => {
+            return projectObject.name === targetProjectName;
+        });
+    }
+
     const pushProject = (newProjectObject) => {
         /**Pushes a new project object into user's "storist" array.
          * 
@@ -64,7 +77,8 @@ const localStorageConfig = (() => {
         _updateLocalStorage(currentLocalStorage);
     }
 
-    return { getLocalStorageAsObject, pushProject, pushTask }
+    return { getLocalStorageAsObject, getProjectObject, pushProject, 
+        pushTask }
 })();
 
 export { localStorageConfig }
