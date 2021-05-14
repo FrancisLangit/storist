@@ -1,119 +1,45 @@
 import './styles/bootstrap.min.css'
 import './styles/style.css'
 
-import './bootstrap.bundle.min.js';
+import './bootstrap.bundle.min.js'
 
-const createTask = (text) => {
-    /**Returns object representing task.
-     * 
-     * Args:
-     *  text (string) : Main text of the task.*/
-    return { text }
-}
+import { createTask } from './objects/createTask.js'
+import { createProject } from './objects/createProject.js'
+import { localStorageConfig } from './objects/localStorageConfig.js'
 
-const createProject = (name) => {
-    /**Returns object representing a project.
-     * 
-     * Args:
-     *  name (string) : Name of the project.*/
-    let tasks = []
-    
-    const addTask = (task) => {
-        /**Pushes a task object into the project's tasks array.*/
-        tasks.push(task); 
+localStorageConfig.pushTask(createTask('Buy groceries.'));
+localStorageConfig.pushTask(createTask('Do laundry.'));
+
+const userInterfaceConfiguration = (() => {
+
+    const createTaskNode = ((taskObject) => {
+        let taskCheckBox = document.createElement('div');
+        taskCheckBox.classList.add('task-checkbox');
+
+        let taskText = document.createElement('div');
+        taskText.classList.add('task-text');
+        taskText.textContent = taskObject.text;
+
+        let taskNode = document.createElement('div');
+        taskNode.classList.add('task');
+        taskNode.classList.add('card-text');
+        taskNode.append(taskCheckBox, taskText);
+
+        return taskNode;
+    })
+
+    const updateTasksDiv = () => {
+        let tasksDiv = document.querySelector('#tasks');
+        tasksDiv.innerHTML = '';
+
+        let currentLocalStorage = (
+            localStorageConfig.getLocalStorageAsObject());
+        let inbox = currentLocalStorage['inbox'];
+
+        tasksDiv.append(createTaskNode(inbox[1]));
     }
 
-    return { name, tasks, addTask }
-}
-
-const localStorageConfiguration = (() => {
-    /**Holds methods allowing for the configuration and usage of the user's 
-     * localStorage "storist" array.*/
-
-    const _checkLocalStorage = () => {
-        /**Checks 'storist' object in users localStorage and sets it up if it
-         * is missing.*/
-        if (!localStorage.getItem('storist')) {
-            const initialLocalStorage = JSON.stringify(
-                {
-                    'inbox': [], 
-                    'projects': [],
-                }
-            );
-            localStorage.setItem('storist', initialLocalStorage);
-        } 
-    }
-
-    const _updateLocalStorage = (newLocalStorageAsObject) => {
-        /**Updates the user's current localStorage "storist" array. 
-         * 
-         * Args:
-         *  newLocalStorageAsObject (object) : Object to update "storist" in
-         *      localStorage with. Passed as object, not string.*/
-        localStorage.setItem(
-            'storist', JSON.stringify(newLocalStorageAsObject));
-    }
-
-    const getLocalStorageAsObject = () => {
-        /**Returns localStorage 'storist' string as object.*/
-        _checkLocalStorage();
-        return JSON.parse(localStorage.getItem('storist'));
-    }
-
-    const pushProject = (newProjectObject) => {
-        /**Pushes a new project object into user's "storist" array.
-         * 
-         * Args:
-         *  newProjectObject (object) : Project object to be pushed.*/
-        let currentLocalStorage = getLocalStorageAsObject();
-        let projects = currentLocalStorage['projects'];
-        projects.push(newProjectObject);
-        _updateLocalStorage(currentLocalStorage);
-    }
-
-    const pushTask = (newTaskObject, targetProjectName) => {
-        /**Pushes a new task into a targeted project object's tasks array. If
-         * no project indicated, pushes task to user's inbox by default.
-         * 
-         * Args:
-         *  newTaskObject (object) : Task object to be pushed.
-         *  targetProjectName (string) : Name of the target project where
-         *      newTaskObject will be pushed to.*/
-        let currentLocalStorage = getLocalStorageAsObject();
-        if (!targetProjectName) {
-            currentLocalStorage['inbox'].push(newTaskObject);
-        } else {
-            let projects = currentLocalStorage['projects'];
-            let targetProjectObject = projects.find(projectObj => {
-                return projectObj.name === targetProjectName;
-            });
-            targetProjectObject['tasks'].push(newTaskObject);
-        }
-        _updateLocalStorage(currentLocalStorage);
-    }
-
-    return { getLocalStorageAsObject, pushProject, pushTask }
+    updateTasksDiv();
 })();
 
-// let newProject = createProject('Personal');
-// localStorageConfiguration.pushProject(newProject);
-// console.log(localStorage['storist']);
-
-// let newTask = createTask('Buy groceries.');
-// localStorageConfiguration.pushTask(newTask);
-// console.log(localStorage['storist']);
-
-// const userInterface = (() => {
-//     const updateTasksDiv = () => {
-//         let _tasksDiv = document.querySelector('#tasks');
-//         _tasksDiv.innerHTML = '';
-
-//         let currentLocalStorage = (
-//             localStorageConfiguration.getLocalStorageAsObject());
-//         console.log(currentLocalStorage);
-//     }
-
-//     updateTasksDiv();
-// })();
-
-// localStorage.clear();
+localStorage.clear();
