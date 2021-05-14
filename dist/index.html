@@ -13,7 +13,56 @@
 </head>
 
 <body>
-    <div id="tasks"></div>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Storist</h2>
+            <button type="button" class="btn btn-outline-secondary btn-sm">
+                Inbox
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">
+                Today
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">
+                Projects ▼
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div id="tasks" class="card-body">
+            <h3 class="card-title">Inbox</h3>
+
+            <div class="task card-text">
+                <div class="task-checkbox"></div>
+                <div class="task-text">Task Text</div>
+            </div>
+
+            <div class="task card-text">
+                <div class="task-checkbox"></div>
+                <div class="task-text">Task Text</div>
+            </div>
+
+            <div class="task card-text">
+                <div class="task-checkbox"></div>
+                <div class="task-text">Task Text</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer" class="card">
+        <div class="card-body">
+            <h5 class="card-title">MIT License</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                Copyright © 2021 Francis Langit
+            </h6>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li id="footer-links" class="list-group-item">
+                <a href="#">GitHub</a> •
+                <a href="#">License</a>
+            </li>
+        </ul>
+    </div>
 </body>
 
 </html>

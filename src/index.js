@@ -34,12 +34,12 @@ const localStorageConfiguration = (() => {
         /**Checks 'storist' object in users localStorage and sets it up if it
          * is missing.*/
         if (!localStorage.getItem('storist')) {
-            const initialLocalStorage = JSON.stringify((
+            const initialLocalStorage = JSON.stringify(
                 {
                     'inbox': [], 
                     'projects': [],
                 }
-            ));
+            );
             localStorage.setItem('storist', initialLocalStorage);
         } 
     }
@@ -95,15 +95,13 @@ const localStorageConfiguration = (() => {
     return { getLocalStorageAsObject, pushProject, pushTask }
 })();
 
-let newProject = createProject('Personal');
-localStorageConfiguration.pushProject(newProject);
-console.log(localStorage['storist']);
+// let newProject = createProject('Personal');
+// localStorageConfiguration.pushProject(newProject);
+// console.log(localStorage['storist']);
 
-let newTask = createTask('Buy groceries.');
-localStorageConfiguration.pushTask(newTask);
-console.log(localStorage['storist']);
-
-localStorage.clear();
+// let newTask = createTask('Buy groceries.');
+// localStorageConfiguration.pushTask(newTask);
+// console.log(localStorage['storist']);
 
 // const userInterface = (() => {
 //     const updateTasksDiv = () => {
@@ -112,5 +110,10 @@ localStorage.clear();
 
 //         let currentLocalStorage = (
 //             localStorageConfiguration.getLocalStorageAsObject());
+//         console.log(currentLocalStorage);
 //     }
+
+//     updateTasksDiv();
 // })();
+
+// localStorage.clear();
