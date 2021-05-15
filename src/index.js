@@ -31,7 +31,17 @@ const addTaskModal = (() => {
         return !requiredInputs.some(isEmpty);
     }
 
-    const _invalidateEmptyReqFormInputs = () => {
+    const _validateForm = () => {
+        /**Creates a new task object, pushes such to localStorage, and updates
+         * user interface. Afterwards, closes modal.*/
+        let newTaskObj = createTask(
+            document.querySelector('#addTaskText').value);
+        localStorageConfig.pushTask(newTaskObj);
+        userInterfaceConfig.showInbox();
+        _addTaskModalNode.hide();
+    }
+
+    const _invalidateForm = () => {
         /**Adds 'is-invalid' class to classLists of all required input
          * nodes that are empty.*/
         const requiredInputs = _getRequiredInputs();
@@ -43,19 +53,15 @@ const addTaskModal = (() => {
     }
 
     const _setUpAddTaskButton = () => {
-        /**Adds click event listener to "Add Task" modal's "Add Task" button. 
+        /**Adds click event listener to "Add Task" button. 
          * Such makes it add a task to the user's localStorage based on 
          * contents of modal's form and updates user interface accordingly.*/
         let addTaskButton = document.querySelector('#addTaskButton');
         addTaskButton.addEventListener('click', () => {
             if (_isRequiredInputsFilled()) {
-                let newTaskObj = createTask(
-                    document.querySelector('#addTaskText').value);
-                localStorageConfig.pushTask(newTaskObj);
-                userInterfaceConfig.showInbox();
-                _addTaskModalNode.hide();
+                _validateForm();
             } else {
-                _invalidateEmptyReqFormInputs();
+                _invalidateForm();
             }
         });
     }
