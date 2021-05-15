@@ -7,8 +7,34 @@ import { createTask } from './objects/createTask.js'
 import { createProject } from './objects/createProject.js'
 import { localStorageConfig } from './objects/localStorageConfig.js'
 
+
 const addTaskModal = (() => {
     /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
+
+    const _getRequiredInputs = () => {
+        /**Returns array of input nodes that, by minimum, are required to be
+         * filled out by the user to successfully add a task.*/
+        let form = document.querySelector('#addTaskForm');
+        let formInputs = form.getElementsByTagName('input');
+        let formInputsAsArray = Array.from(formInputs);
+        return formInputsAsArray.filter(formInput => {
+            return formInput.id === 'addTaskText';
+        });
+    }
+
+    const _isRequiredInputsFilled = () => {
+        /**Returns true if all inputs in #addTaskForm are filled. Otherwise, 
+         * returns false.*/
+        const requiredInputs = _getRequiredInputs();
+        const isEmpty = (inputNode) => inputNode.value === '';
+        return !requiredInputs.some(isEmpty);
+    }
+
+    // const _hideModal= () => {
+    //     let addTaskModal = new bootstrap.Modal(
+    //         document.querySelector('#addTaskModal'));
+    //     addTaskModal.hide();
+    // }
 
     const _setUpAddTaskButton = () => {
         /**Adds click event listener to "Add Task" modal's "Add Task" button. 
@@ -16,10 +42,13 @@ const addTaskModal = (() => {
          * contents of modal's form and updates user interface accordingly.*/
         let addTaskButton = document.querySelector('#addTaskButton');
         addTaskButton.addEventListener('click', () => {
-            let newTaskObj = createTask(
-                document.querySelector('#inputTaskText').value);
-            localStorageConfig.pushTask(newTaskObj);
-            userInterfaceConfig.showInbox();
+            if (_isRequiredInputsFilled()) {
+                let newTaskObj = createTask(
+                    document.querySelector('#addTaskText').value);
+                localStorageConfig.pushTask(newTaskObj);
+                userInterfaceConfig.showInbox();
+                _hideModal();
+            }
         });
     }
 
