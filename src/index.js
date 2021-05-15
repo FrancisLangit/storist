@@ -33,12 +33,11 @@ const addTaskModal = (() => {
 
     const _validateForm = () => {
         /**Creates a new task object, pushes such to localStorage, and updates
-         * user interface. Afterwards, closes modal.*/
+         * user interface.*/
         let newTaskObj = createTask(
             document.querySelector('#addTaskText').value);
         localStorageConfig.pushTask(newTaskObj);
         userInterfaceConfig.showInbox();
-        _addTaskModalNode.hide();
     }
 
     const _invalidateForm = () => {
@@ -52,14 +51,27 @@ const addTaskModal = (() => {
         }
     }
 
+    const _resetForm = () => {
+        /**Resets all field in modal's form.*/
+        let form = document.querySelector('#addTaskForm');
+        let formInputs = form.getElementsByTagName('input');
+        for (let i = 0; i < formInputs.length; i++) {
+            formInputs[i].value = '';
+            formInputs[i].classList.remove('is-invalid');
+        }
+    }
+
     const _setUpAddTaskButton = () => {
-        /**Adds click event listener to "Add Task" button. 
-         * Such makes it add a task to the user's localStorage based on 
-         * contents of modal's form and updates user interface accordingly.*/
+        /**Adds click event listener to "Add Task" button that makes it check 
+         * the modal's form. If user input valid, calls _validateForm() and 
+         * closes and resets the modal. Otherwise, _invalidateForm() is 
+         * called.*/
         let addTaskButton = document.querySelector('#addTaskButton');
         addTaskButton.addEventListener('click', () => {
             if (_isRequiredInputsFilled()) {
                 _validateForm();
+                _addTaskModalNode.hide();
+                _resetForm();
             } else {
                 _invalidateForm();
             }
