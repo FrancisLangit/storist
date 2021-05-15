@@ -7,6 +7,25 @@ import { createTask } from './objects/createTask.js'
 import { createProject } from './objects/createProject.js'
 import { localStorageConfig } from './objects/localStorageConfig.js'
 
+const addTaskModal = (() => {
+    /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
+
+    const _setUpAddTaskButton = () => {
+        /**Adds click event listener to "Add Task" modal's "Add Task" button. 
+         * Such makes it add a task to the user's localStorage based on 
+         * contents of modal's form and updates user interface accordingly.*/
+        let addTaskButton = document.querySelector('#addTaskButton');
+        addTaskButton.addEventListener('click', () => {
+            let newTaskObj = createTask(
+                document.querySelector('#inputTaskText').value);
+            localStorageConfig.pushTask(newTaskObj);
+            userInterfaceConfig.showInbox();
+        });
+    }
+
+    _setUpAddTaskButton();
+})();
+
 const userInterfaceConfig = (() => {
     /**Holds methods assisting in the configuration and setup of the 
      * application's user interface.*/
@@ -45,17 +64,6 @@ const userInterfaceConfig = (() => {
         }
     }
 
-    const _setUpAddTaskButton = () => {
-        /** */
-        let addTaskButton = document.querySelector('#addTaskButton');
-        addTaskButton.addEventListener('click', () => {
-            let newTaskObj = createTask(
-                document.querySelector('#inputTaskText').value);
-            localStorageConfig.pushTask(newTaskObj);
-            showInbox();
-        });
-    }
-
     const showInbox = () => {
         /**Updates the #tasks div to show only those tasks that are in the 
          * user's inbox.*/
@@ -74,7 +82,6 @@ const userInterfaceConfig = (() => {
         _updateTasksDiv(project.tasks);
     }
 
-    _setUpAddTaskButton();
     showInbox();
 
     return { showInbox, showProject };
