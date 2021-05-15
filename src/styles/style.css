@@ -2,25 +2,28 @@ body {
   display: block;
   margin: 0 auto;
   padding: 25px;
-  width: 50vw;
+  width: 75%;
 }
 
 body div.card {
   margin-bottom: 12.5px;
 }
 
-.task {
+#tasks {
+  margin-bottom: 12.5px;
+}
+
+#tasks .task {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom: 1px solid #c8c8c8;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 12.5px 0;
+  padding: 7.5px 0;
 }
 
-.task-checkbox {
+#tasks .task-checkbox {
   border-radius: 50%;
   border: 1px solid #afafaf;
   height: 15px;
@@ -28,7 +31,7 @@ body div.card {
   width: 15px;
 }
 
-.task-checkbox:hover {
+#tasks .task-checkbox:hover {
   background-color: #f0f0f0;
 }
 

@@ -25,8 +25,7 @@ const userInterfaceConfig = (() => {
         taskText.textContent = taskObject.text;
 
         let taskNode = document.createElement('div');
-        taskNode.classList.add('task');
-        taskNode.classList.add('card-text');
+        taskNode.classList.add('task', 'card-text');
         taskNode.append(taskCheckBox, taskText);
 
         return taskNode;
@@ -46,6 +45,13 @@ const userInterfaceConfig = (() => {
         }
     }
 
+    const _setUpAddTaskModal = () => {
+        let addTaskModal = document.querySelector('#addTaskModal');
+        // addTaskModal.addEventListener('click', () => {
+            
+        // });
+    }
+
     const showInbox = () => {
         /**Updates the #tasks div to show only those tasks that are in the 
          * user's inbox.*/
@@ -63,6 +69,8 @@ const userInterfaceConfig = (() => {
         let project = localStorageConfig.getProjectObject(targetProjectName);
         _updateTasksDiv(project.tasks);
     }
+
+    _setUpAddTaskModal();
 
     return { showInbox, showProject };
 })();

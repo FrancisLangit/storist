@@ -7,11 +7,7 @@ const localStorageConfig = (() => {
          * is missing.*/
         if (!localStorage.getItem('storist')) {
             const initialLocalStorage = JSON.stringify(
-                {
-                    'inbox': [], 
-                    'projects': [],
-                }
-            );
+                {'inbox': [], 'projects': []});
             localStorage.setItem('storist', initialLocalStorage);
         } 
     }
@@ -33,8 +29,8 @@ const localStorageConfig = (() => {
     }
 
     const getProjectObject = (targetProjectName) => {
-        /**Returns a target locally stored project object in user's 
-         * localStorage 'storist'.
+        /**Returns a targeted locally stored project object in 'storist' of 
+         * user's localStorage.
          * 
          * Args:
          *  targetProjectName (string) : Name of the project object to be 
@@ -50,10 +46,10 @@ const localStorageConfig = (() => {
          * 
          * Args:
          *  newProjectObject (object) : Project object to be pushed.*/
-        let currentLocalStorage = getLocalStorageAsObject();
-        let projects = currentLocalStorage['projects'];
+        let currentStorage = getLocalStorageAsObject();
+        let projects = currentStorage['projects'];
         projects.push(newProjectObject);
-        _updateLocalStorage(currentLocalStorage);
+        _updateLocalStorage(currentStorage);
     }
 
     const pushTask = (newTaskObject, targetProjectName) => {
@@ -64,17 +60,18 @@ const localStorageConfig = (() => {
          *  newTaskObject (object) : Task object to be pushed.
          *  targetProjectName (string) : Name of the target project where
          *      newTaskObject will be pushed to.*/
-        let currentLocalStorage = getLocalStorageAsObject();
+        let currentStorage = getLocalStorageAsObject();
         if (!targetProjectName) {
-            currentLocalStorage['inbox'].push(newTaskObject);
+            currentStorage['inbox'].push(newTaskObject);
         } else {
-            let projects = currentLocalStorage['projects'];
-            let targetProjectObject = projects.find(projectObj => {
-                return projectObj.name === targetProjectName;
-            });
+            let targetProjectObject = currentStorage.projects.find(
+                (projectObject) => {
+                    return projectObject.name === targetProjectName;
+                }
+            );
             targetProjectObject['tasks'].push(newTaskObject);
         }
-        _updateLocalStorage(currentLocalStorage);
+        _updateLocalStorage(currentStorage);
     }
 
     return { getLocalStorageAsObject, getProjectObject, pushProject, 

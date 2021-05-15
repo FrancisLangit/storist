@@ -2,29 +2,32 @@ body {
     display: block;
     margin: 0 auto;
     padding: 25px;
-    width: 50vw;
+    width: 75%;
 
     div.card {
         margin-bottom: 12.5px;
     }
 }
 
-.task {
-    align-items: center;
-    border-bottom: 1px solid rgb(200, 200, 200);
-    display: flex;
-    padding: 12.5px 0;
+#tasks {
+    margin-bottom: 12.5px;
 
-    &-checkbox {
-        border-radius: 50%;
-        border: 1px solid rgb(175, 175, 175);
-        height: 15px;
-        margin-right: 10px;
-        width: 15px;
-    }
-
-    &-checkbox:hover {
-        background-color: rgb(240, 240, 240);
+    .task {
+        align-items: center;
+        display: flex;
+        padding: 7.5px 0;
+    
+        &-checkbox {
+            border-radius: 50%;
+            border: 1px solid rgb(175, 175, 175);
+            height: 15px;
+            margin-right: 10px;
+            width: 15px;
+        }
+    
+        &-checkbox:hover {
+            background-color: rgb(240, 240, 240);
+        }
     }
 }
 
