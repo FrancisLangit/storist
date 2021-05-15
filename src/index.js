@@ -45,11 +45,15 @@ const userInterfaceConfig = (() => {
         }
     }
 
-    const _setUpAddTaskModal = () => {
-        let addTaskModal = document.querySelector('#addTaskModal');
-        // addTaskModal.addEventListener('click', () => {
-            
-        // });
+    const _setUpAddTaskButton = () => {
+        /** */
+        let addTaskButton = document.querySelector('#addTaskButton');
+        addTaskButton.addEventListener('click', () => {
+            let newTaskObj = createTask(
+                document.querySelector('#inputTaskText').value);
+            localStorageConfig.pushTask(newTaskObj);
+            showInbox();
+        });
     }
 
     const showInbox = () => {
@@ -70,21 +74,22 @@ const userInterfaceConfig = (() => {
         _updateTasksDiv(project.tasks);
     }
 
-    _setUpAddTaskModal();
+    _setUpAddTaskButton();
+    showInbox();
 
     return { showInbox, showProject };
 })();
 
-localStorageConfig.pushProject(createProject('Chores'));
+// localStorageConfig.pushProject(createProject('Chores'));
 
-localStorageConfig.pushTask(
-    createTask('Buy groceries.', 'Chores'), 'Chores');
-localStorageConfig.pushTask(
-    createTask('Do laundry.', 'Chores'), 'Chores');
-localStorageConfig.pushTask(
-    createTask('Play NBA 2k for 100 hours.'));
+// localStorageConfig.pushTask(
+//     createTask('Buy groceries.', 'Chores'), 'Chores');
+// localStorageConfig.pushTask(
+//     createTask('Do laundry.', 'Chores'), 'Chores');
+// localStorageConfig.pushTask(
+//     createTask('Play NBA 2k for 100 hours.'));
 
 // userInterfaceConfig.showInbox();
-userInterfaceConfig.showProject('Chores');
+// userInterfaceConfig.showProject('Chores');
 
 localStorage.clear();
