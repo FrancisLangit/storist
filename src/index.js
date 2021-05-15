@@ -1,15 +1,16 @@
-import './styles/bootstrap.min.css'
-import './styles/style.css'
+window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
 
-import './bootstrap.bundle.min.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/style.css';
 
-import { createTask } from './objects/createTask.js'
-import { createProject } from './objects/createProject.js'
-import { localStorageConfig } from './objects/localStorageConfig.js'
-
+import { createTask } from './objects/createTask.js';
+import { createProject } from './objects/createProject.js';
+import { localStorageConfig } from './objects/localStorageConfig.js';
 
 const addTaskModal = (() => {
     /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
+    let _addTaskModalNode = new bootstrap.Modal(
+        document.querySelector('#addTaskModal'));
 
     const _getRequiredInputs = () => {
         /**Returns array of input nodes that, by minimum, are required to be
@@ -30,12 +31,6 @@ const addTaskModal = (() => {
         return !requiredInputs.some(isEmpty);
     }
 
-    // const _hideModal= () => {
-    //     let addTaskModal = new bootstrap.Modal(
-    //         document.querySelector('#addTaskModal'));
-    //     addTaskModal.hide();
-    // }
-
     const _setUpAddTaskButton = () => {
         /**Adds click event listener to "Add Task" modal's "Add Task" button. 
          * Such makes it add a task to the user's localStorage based on 
@@ -47,7 +42,7 @@ const addTaskModal = (() => {
                     document.querySelector('#addTaskText').value);
                 localStorageConfig.pushTask(newTaskObj);
                 userInterfaceConfig.showInbox();
-                _hideModal();
+                _addTaskModalNode.hide();
             }
         });
     }
