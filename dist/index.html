@@ -54,12 +54,11 @@
     </div>
 
     <!-- Modal were user fills out form to add task.-->
-    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+    <div id="addTaskModal" class="modal fade" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addTaskModalLabel">Add Task</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 id="addTaskModalLabel" class="modal-title">Add Task</h5>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -71,7 +70,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="addTaskCancelButton" type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button id="addTaskButton" type="button" class="btn btn-dark">Add Task</button>
                 </div>
             </div>

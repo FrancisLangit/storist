@@ -62,7 +62,7 @@ const addTaskModal = (() => {
     }
 
     const _setUpAddTaskButton = () => {
-        /**Adds click event listener to "Add Task" button that makes it check 
+        /**Adds click event listener to "Add Task" button that makes it check
          * the modal's form. If user input valid, calls _validateForm() and 
          * closes and resets the modal. Otherwise, _invalidateForm() is 
          * called.*/
@@ -78,7 +78,15 @@ const addTaskModal = (() => {
         });
     }
 
+    const _setUpCancelButton = () => {
+        /**Adds click event listener to modal's "Cancel" button that makes it
+         * reset the modal before closing it.*/
+        let cancelButton = document.querySelector('#addTaskCancelButton');
+        cancelButton.addEventListener('click', _resetForm);
+    }
+
     _setUpAddTaskButton();
+    _setUpCancelButton();
 })();
 
 const userInterfaceConfig = (() => {
