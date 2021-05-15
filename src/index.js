@@ -19,7 +19,7 @@ const addTaskModal = (() => {
         let formInputs = form.getElementsByTagName('input');
         let formInputsAsArray = Array.from(formInputs);
         return formInputsAsArray.filter(formInput => {
-            return formInput.id === 'addTaskText';
+            return formInput.id === 'addTaskInputText';
         });
     }
 
@@ -35,7 +35,7 @@ const addTaskModal = (() => {
         /**Creates a new task object, pushes such to localStorage, and updates
          * user interface.*/
         let newTaskObj = createTask(
-            document.querySelector('#addTaskText').value);
+            document.querySelector('#addTaskInputText').value);
         localStorageConfig.pushTask(newTaskObj);
         userInterfaceConfig.showInbox();
     }
@@ -58,6 +58,17 @@ const addTaskModal = (() => {
         for (let i = 0; i < formInputs.length; i++) {
             formInputs[i].value = '';
             formInputs[i].classList.remove('is-invalid');
+        }
+    }
+
+    const _setUpProjectsDropdown = () => {
+        /**Adds all current projects to #addTaskInputProject dropdown menu.*/
+        let dropdownMenu = document.querySelector('#addTaskInputProject');
+        let projects = localStorageConfig.getLocalStorageAsObject().projects;
+        for (let i = 0; i < projects.length; i++) {
+            let newDropdownItem = document.createElement('option');
+            newDropdownItem.innerHTML = projects[i].name;
+            dropdownMenu.appendChild(newDropdownItem);
         }
     }
 
@@ -85,6 +96,11 @@ const addTaskModal = (() => {
         cancelButton.addEventListener('click', _resetForm);
     }
 
+    localStorageConfig.pushProject(createProject('Chores'));
+    localStorageConfig.pushProject(createProject('Academics'));
+    localStorageConfig.pushProject(createProject('Fitness'));
+
+    _setUpProjectsDropdown();
     _setUpAddTaskButton();
     _setUpCancelButton();
 })();

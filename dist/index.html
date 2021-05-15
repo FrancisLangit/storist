@@ -63,9 +63,19 @@
                 <div class="modal-body">
                     <form>
                         <div id="addTaskForm" class="mb-3">
-                            <label for="addTaskText" class="form-label">Task</label>
-                            <input type="text" class="form-control" id="addTaskText" aria-describedby="addTaskTextHelp">
-                            <div id="addTaskTextHelp" class="form-text">What do you have to do?</div>
+                            <div class="mb-3">
+                                <label for="addTaskInputText" class="form-label">Task</label>
+                                <input type="text" class="form-control" id="addTaskInputText" aria-describedby="addTaskInputTextHelp">
+                                <div id="addTaskInputTextHelp" class="form-text">What do you have to do?</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="addTaskInputProject" class="form-label">Project</label>
+                                <select id="addTaskInputProject" class="form-select">
+                                    <option>None</option>
+                                </select>
+                                <div id="addTaskInputProjectHelp" class="form-text">What project will this task be put in?</div>
+                            </div>
                         </div>
                     </form>
                 </div>
