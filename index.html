@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <!-- Card where navigation buttons are placed.  -->
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">Storist</h2>
@@ -25,27 +26,56 @@
         </div>
     </div>
 
+    <!-- Card where tasks are displayed. -->
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">Inbox</h3>
-
+            <hr />
             <div id="tasks"></div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                + Add Task
+            </button>
         </div>
     </div>
 
+    <!-- Card acting as footer where tertiary details are found. -->
     <div id="footer" class="card">
         <div class="card-body">
             <h5 class="card-title">MIT License</h5>
             <h6 class="card-subtitle mb-2 text-muted">
-                Copyright © 2021 Francis Langit
+                Copyright © 2021
             </h6>
         </div>
         <ul class="list-group list-group-flush">
-            <li id="footer-links" class="list-group-item">
-                <a href="#">GitHub</a> •
-                <a href="#">License</a>
+            <li class="list-group-item">
+                <a href="#">GitHub</a> • <a href="#">License</a>
             </li>
         </ul>
+    </div>
+
+    <!-- Modal were user fills out form to add task.-->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Add Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="taskText" class="form-label">Task</label>
+                            <input type="text" class="form-control" id="taskText" aria-describedby="taskTextHelp">
+                            <div id="taskTextHelp" class="form-text">What do you have to do?</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-dark">Add Task</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
