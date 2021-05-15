@@ -31,6 +31,17 @@ const addTaskModal = (() => {
         return !requiredInputs.some(isEmpty);
     }
 
+    const _invalidateEmptyReqFormInputs = () => {
+        /**Adds 'is-invalid' class to classLists of all required input
+         * nodes that are empty.*/
+        const requiredInputs = _getRequiredInputs();
+        for (let i = 0; i < requiredInputs.length; i++) {
+            if (requiredInputs[i].value === '') {
+                requiredInputs[i].classList.add('is-invalid');
+            }
+        }
+    }
+
     const _setUpAddTaskButton = () => {
         /**Adds click event listener to "Add Task" modal's "Add Task" button. 
          * Such makes it add a task to the user's localStorage based on 
@@ -43,6 +54,8 @@ const addTaskModal = (() => {
                 localStorageConfig.pushTask(newTaskObj);
                 userInterfaceConfig.showInbox();
                 _addTaskModalNode.hide();
+            } else {
+                _invalidateEmptyReqFormInputs();
             }
         });
     }
