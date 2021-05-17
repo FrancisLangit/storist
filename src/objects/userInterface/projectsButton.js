@@ -2,6 +2,15 @@ import { localStorageConfig } from '../localStorageConfig.js';
 
 const projectsButton = (() => {
     /**Projects dropdown button found on the card placed top-most on page.*/
+
+    const _getNoProjectsNode = () => {
+        /**Returns .dropdown-header li node with textContent "No projects."*/
+        let noProjectsNode = document.createElement('li');
+        noProjectsNode.classList.add('dropdown-header');
+        noProjectsNode.textContent = 'No projects.';
+        return noProjectsNode;
+    }
+
     const _getDropdownItem = (projectName) => {
         /**Returns a node with link to a project in user's localStorage. Meant
          * to be placed in "Projects" button dropdown menu.
@@ -16,14 +25,6 @@ const projectsButton = (() => {
         liNode.appendChild(aNode);
 
         return liNode;
-    }
-
-    const _getNoProjectsNode = () => {
-        /**Returns .dropdown-header li node with textContent "No projects."*/
-        let noProjectsNode = document.createElement('li');
-        noProjectsNode.classList.add('dropdown-header');
-        noProjectsNode.textContent = 'No projects.';
-        return noProjectsNode;
     }
 
     const _setUpDropdownMenu = () => {
@@ -45,6 +46,7 @@ const projectsButton = (() => {
     }
 
     _setUpDropdownMenu();
+    _setUpAddProjectButton();
 })();
 
 export { projectsButton }
