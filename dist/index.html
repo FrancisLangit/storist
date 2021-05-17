@@ -13,16 +13,21 @@
 </head>
 
 <body>
-    <!-- Card where navigation buttons are placed.  -->
+    <!-- Card where navigation buttons are placed. -->
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">Storist</h2>
             <button type="button" class="btn btn-outline-secondary btn-sm">
                 Inbox
             </button>
-            <button type="button" class="btn btn-outline-secondary btn-sm">
-                Projects ▼
-            </button>
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Projects
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">+ Add Project</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
