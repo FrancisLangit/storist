@@ -7,13 +7,10 @@ import { createTask } from './objects/createTask.js';
 import { createProject } from './objects/createProject.js';
 import { localStorageConfig } from './objects/localStorageConfig.js';
 
-const navigationCard = (() => {
-    /**Card where "Inbox" and "Projects" buttons are found, allowing for user
-     * to navigate through the tasks stored in their localStorage.*/
-
-    const getProjectsMenuItem = (projectName) => {
+const projectsButton = (() => {
+    const _getDropdownItem = (projectName) => {
         /**Returns a node with link to a project in user's localStorage. Meant
-         * to be placed in #projectsMenu dropdown.
+         * to be placed in "Projects" button dropdown menu.
          * 
          * Args:
          *  projectName (string): Name of the project to be displayed.*/
@@ -27,22 +24,31 @@ const navigationCard = (() => {
         return liNode;
     }
 
-    const setUpProjectsMenu = () => {
-        /**Fills #projectsMenu dropdown with nodes containing links to user's 
-         * stored projects.*/
-        let projectsMenu = document.querySelector('#projectsMenu');
+    const setUpDropdownMenu = () => {
+        /**Fills "Projects" button dropdown menu with nodes containing links 
+         * to user's stored projects.*/
+        let projectsMenu = document.querySelector(
+            '#projectsButtonDropdownItems');
         let projects = localStorageConfig.getLocalStorageAsObject().projects;
-        for (let i = 0; i < projects.length; i++) {
-            let projectName = projects[i].name;
-            let projectsMenuItem = getProjectsMenuItem(projectName)
-            projectsMenu.appendChild(projectsMenuItem);
+
+        if (projects.length <= 0) {
+            let noProjectsNode = document.createElement('li');
+            noProjectsNode.classList.add('dropdown-header');
+            noProjectsNode.textContent = 'No projects.';
+            projectsMenu.appendChild(noProjectsNode);
+        } else {
+            for (let i = 0; i < projects.length; i++) {
+                let projectName = projects[i].name;
+                let projectsMenuItem = _getDropdownItem(projectName)
+                projectsMenu.appendChild(projectsMenuItem);
+            }
         }
     }
 
-    localStorageConfig.pushProject(createProject('Personal'));
-    localStorageConfig.pushProject(createProject('None'));
+    // localStorageConfig.pushProject(createProject('Personal'));
+    // localStorageConfig.pushProject(createProject('None'));
 
-    setUpProjectsMenu();
+    setUpDropdownMenu();
 
     localStorage.clear()
 })();
