@@ -47,6 +47,7 @@ const addProjectModal = (() => {
         addProjectButton.addEventListener('click', () => {
             if (_isInputValid()) {
                 _validateForm();
+                _modalNode.hide();
                 _resetForm();
             } else {
                 _invalidateForm();
@@ -54,5 +55,15 @@ const addProjectModal = (() => {
         });
     }
 
+    const _setUpCancelButton = () => {
+        /**Adds click event listener to "Cancel" button of modal. Makes it 
+         * reset the form.*/
+        let cancelButton = document.querySelector('#addProjectCancelButton');
+        cancelButton.addEventListener('click', _resetForm);
+    }
+
     _setUpAddProjectButton();
+    _setUpCancelButton();
 })();
+
+export { addProjectModal }
