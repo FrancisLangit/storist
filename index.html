@@ -13,28 +13,35 @@
 </head>
 
 <body>
-    <!-- Card where navigation buttons are placed. -->
+    <!-- Navigation -->
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">Storist</h2>
+            <!-- Inbox Button: Makes "Tasks" card only show tasks stored in Inbox. -->
             <button type="button" class="btn btn-outline-secondary btn-sm">
                 Inbox
             </button>
+            <!-- Projects Button: Opens dropdown menu with links to projects. -->
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Projects
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item">+ Add Project</a></li>
+                    <!-- Add Project Button: Opens modal with form to add a new project. -->
+                    <li>
+                        <a id='projectsButtonAddProject' class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addProjectModal">
+                            + Add Project
+                        </a>
+                    </li>
                     <li><hr class="dropdown-divider"></li>
-                    <div id="projectsButtonDropdownItems">
-                    </div>
+                    <!-- Div holding link nodes to new projects. -->
+                    <div id="projectsButtonDropdownItems"></div>
                 </ul>
             </div>
         </div>
     </div>
 
-    <!-- Card where tasks are displayed. -->
+    <!-- Tasks -->
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">Inbox</h3>
@@ -46,7 +53,7 @@
         </div>
     </div>
 
-    <!-- Card acting as footer where tertiary details are found. -->
+    <!-- Footer Card -->
     <div id="footer" class="card">
         <div class="card-body">
             <h5 class="card-title">MIT License</h5>
@@ -61,22 +68,27 @@
         </ul>
     </div>
 
-    <!-- Modal were user fills out form to add task.-->
+    <!-- "Add Task" Modal Form -->
     <div id="addTaskModal" class="modal fade" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                <!-- Header -->
                 <div class="modal-header">
                     <h5 id="addTaskModalLabel" class="modal-title">Add Task</h5>
                 </div>
+
+                <!-- Form -->
                 <div class="modal-body">
                     <form>
                         <div id="addTaskForm" class="mb-3">
+                            <!-- "Text" Input -->
                             <div class="mb-3">
                                 <label for="addTaskInputText" class="form-label">Task</label>
                                 <input type="text" class="form-control" id="addTaskInputText" aria-describedby="addTaskInputTextHelp">
                                 <div id="addTaskInputTextHelp" class="form-text">What do you have to do?</div>
                             </div>
 
+                            <!-- "Project" Dropdown -->
                             <div class="mb-3">
                                 <label for="addTaskInputProject" class="form-label">Project</label>
                                 <select id="addTaskInputProject" class="form-select">
@@ -87,9 +99,43 @@
                         </div>
                     </form>
                 </div>
+
+                <!-- Buttons -->
                 <div class="modal-footer">
                     <button id="addTaskCancelButton" type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button id="addTaskButton" type="button" class="btn btn-dark">Add Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- "Add Project" Modal Form-->
+    <div id="addProjectModal" class="modal fade" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 id="addProjectModalLabel" class="modal-title">Add Project</h5>
+                </div>
+
+                <!-- Form -->
+                <div class="modal-body">
+                    <form>
+                        <div id="addProjectForm" class="mb-3">
+                            <div class="mb-3">
+                                <!-- "Name" Input -->
+                                <label for="addProjectInputName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="addProjectInputName" aria-describedby="addProjectInputNameHelp">
+                                <div id="addProjectInputNameHelp" class="form-text">What's the name of your project?</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Buttons -->
+                <div class="modal-footer">
+                    <button id="addProjectCancelButton" type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="addProjectButton" type="button" class="btn btn-dark">Add Project</button>
                 </div>
             </div>
         </div>
