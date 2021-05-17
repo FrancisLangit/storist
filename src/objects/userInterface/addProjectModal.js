@@ -3,6 +3,8 @@ window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
 import { createProject } from '../createProject.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
+import { projectsButton } from './projectsButton.js';
+
 const addProjectModal = (() => {
     let _modalNode = new bootstrap.Modal(
         document.querySelector('#addProjectModal'));
@@ -14,7 +16,7 @@ const addProjectModal = (() => {
                 document.querySelector('#addProjectInputName').value);
             let projectObj = createProject(projectName);
             localStorageConfig.pushProject(projectObj);
-            console.log(localStorage.getItem('storist'));
+            projectsButton.updateDropdownMenu();
         });
     }
 

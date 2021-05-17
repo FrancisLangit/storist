@@ -27,13 +27,14 @@ const projectsButton = (() => {
         return liNode;
     }
 
-    const _setUpDropdownMenu = () => {
+    const updateDropdownMenu = () => {
         /**Fills "Projects" button dropdown menu with nodes containing links 
          * to user's stored projects.*/
         let projectsDropdown = document.querySelector(
             '#projectsButtonDropdownItems');
-        let projects = localStorageConfig.getLocalStorageAsObject().projects;
+        projectsDropdown.innerHTML = '';
 
+        let projects = localStorageConfig.getLocalStorageAsObject().projects;
         if (projects.length <= 0) {
             projectsDropdown.appendChild(_getNoProjectsNode());
         } else {
@@ -45,7 +46,9 @@ const projectsButton = (() => {
         }
     }
 
-    _setUpDropdownMenu();
+    updateDropdownMenu();
+
+    return { updateDropdownMenu }
 })();
 
 export { projectsButton }
