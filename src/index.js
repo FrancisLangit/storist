@@ -7,107 +7,49 @@ import { createTask } from './objects/createTask.js';
 import { createProject } from './objects/createProject.js';
 import { localStorageConfig } from './objects/localStorageConfig.js';
 
-const addTaskModal = (() => {
-    /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
-    let _addTaskModalNode = new bootstrap.Modal(
-        document.querySelector('#addTaskModal'));
+const navigationCard = (() => {
+    /**Card where "Inbox" and "Projects" buttons are found, allowing for user
+     * to navigate through the tasks stored in their localStorage.*/
 
-    const _getRequiredInputs = () => {
-        /**Returns array of input nodes that, by minimum, are required to be
-         * filled out by the user to successfully add a task.*/
-        let form = document.querySelector('#addTaskForm');
-        let formInputs = form.getElementsByTagName('input');
-        let formInputsAsArray = Array.from(formInputs);
-        return formInputsAsArray.filter(formInput => {
-            return formInput.id === 'addTaskInputText';
-        });
+    const getProjectsMenuItem = (projectName) => {
+        /**Returns a node with link to a project in user's localStorage. Meant
+         * to be placed in #projectsMenu dropdown.
+         * 
+         * Args:
+         *  projectName (string): Name of the project to be displayed.*/
+        let aNode = document.createElement('a');
+        aNode.classList.add('dropdown-item');
+        aNode.innerHTML = projectName;
+
+        let liNode = document.createElement('li');
+        liNode.appendChild(aNode);
+
+        return liNode;
     }
 
-    const _isRequiredInputsFilled = () => {
-        /**Returns true if all inputs in #addTaskForm are filled. Otherwise, 
-         * returns false.*/
-        const requiredInputs = _getRequiredInputs();
-        const isEmpty = (inputNode) => inputNode.value === '';
-        return !requiredInputs.some(isEmpty);
-    }
-
-    const _validateForm = () => {
-        /**Creates a new task object, pushes such to localStorage, and updates
-         * user interface.*/
-        let newTaskObj = createTask(
-            document.querySelector('#addTaskInputText').value);
-        localStorageConfig.pushTask(newTaskObj);
-        userInterfaceConfig.showInbox();
-    }
-
-    const _invalidateForm = () => {
-        /**Adds 'is-invalid' class to classLists of all required input
-         * nodes that are empty.*/
-        const requiredInputs = _getRequiredInputs();
-        for (let i = 0; i < requiredInputs.length; i++) {
-            if (requiredInputs[i].value === '') {
-                requiredInputs[i].classList.add('is-invalid');
-            }
-        }
-    }
-
-    const _resetForm = () => {
-        /**Resets all field in modal's form.*/
-        let form = document.querySelector('#addTaskForm');
-        let formInputs = form.getElementsByTagName('input');
-        for (let i = 0; i < formInputs.length; i++) {
-            formInputs[i].value = '';
-            formInputs[i].classList.remove('is-invalid');
-        }
-    }
-
-    const _setUpProjectsDropdown = () => {
-        /**Adds all current projects to #addTaskInputProject dropdown menu.*/
-        let dropdownMenu = document.querySelector('#addTaskInputProject');
+    const setUpProjectsMenu = () => {
+        /**Fills #projectsMenu dropdown with nodes containing links to user's 
+         * stored projects.*/
+        let projectsMenu = document.querySelector('#projectsMenu');
         let projects = localStorageConfig.getLocalStorageAsObject().projects;
         for (let i = 0; i < projects.length; i++) {
-            let newDropdownItem = document.createElement('option');
-            newDropdownItem.innerHTML = projects[i].name;
-            dropdownMenu.appendChild(newDropdownItem);
+            let projectName = projects[i].name;
+            let projectsMenuItem = getProjectsMenuItem(projectName)
+            projectsMenu.appendChild(projectsMenuItem);
         }
     }
 
-    const _setUpAddTaskButton = () => {
-        /**Adds click event listener to "Add Task" button that makes it check
-         * the modal's form. If user input valid, calls _validateForm() and 
-         * closes and resets the modal. Otherwise, _invalidateForm() is 
-         * called.*/
-        let addTaskButton = document.querySelector('#addTaskButton');
-        addTaskButton.addEventListener('click', () => {
-            if (_isRequiredInputsFilled()) {
-                _validateForm();
-                _addTaskModalNode.hide();
-                _resetForm();
-            } else {
-                _invalidateForm();
-            }
-        });
-    }
+    localStorageConfig.pushProject(createProject('Personal'));
+    localStorageConfig.pushProject(createProject('None'));
 
-    const _setUpCancelButton = () => {
-        /**Adds click event listener to modal's "Cancel" button that makes it
-         * reset the modal before closing it.*/
-        let cancelButton = document.querySelector('#addTaskCancelButton');
-        cancelButton.addEventListener('click', _resetForm);
-    }
+    setUpProjectsMenu();
 
-    localStorageConfig.pushProject(createProject('Chores'));
-    localStorageConfig.pushProject(createProject('Academics'));
-    localStorageConfig.pushProject(createProject('Fitness'));
-
-    _setUpProjectsDropdown();
-    _setUpAddTaskButton();
-    _setUpCancelButton();
+    localStorage.clear()
 })();
 
-const userInterfaceConfig = (() => {
-    /**Holds methods assisting in the configuration and setup of the 
-     * application's user interface.*/
+const tasksCard = (() => {
+    /**Card showing currently displayed tasks, either from user's Inbox or a
+     * specific project of theirs. */
 
     const _createTaskNode = (taskObject) => {
         /**Returns div node constructed out of a task object.
@@ -166,16 +108,98 @@ const userInterfaceConfig = (() => {
     return { showInbox, showProject };
 })();
 
-// localStorageConfig.pushProject(createProject('Chores'));
+const addTaskModal = (() => {
+    /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
+    let _addTaskModalNode = new bootstrap.Modal(
+        document.querySelector('#addTaskModal'));
 
-// localStorageConfig.pushTask(
-//     createTask('Buy groceries.', 'Chores'), 'Chores');
-// localStorageConfig.pushTask(
-//     createTask('Do laundry.', 'Chores'), 'Chores');
-// localStorageConfig.pushTask(
-//     createTask('Play NBA 2k for 100 hours.'));
+    const _getRequiredInputs = () => {
+        /**Returns array of input nodes that, by minimum, are required to be
+         * filled out by the user to successfully add a task.*/
+        let form = document.querySelector('#addTaskForm');
+        let formInputs = form.getElementsByTagName('input');
+        let formInputsAsArray = Array.from(formInputs);
+        return formInputsAsArray.filter(formInput => {
+            return formInput.id === 'addTaskInputText';
+        });
+    }
 
-// userInterfaceConfig.showInbox();
-// userInterfaceConfig.showProject('Chores');
+    const _isRequiredInputsFilled = () => {
+        /**Returns true if all inputs in #addTaskForm are filled. Otherwise, 
+         * returns false.*/
+        const requiredInputs = _getRequiredInputs();
+        const isEmpty = (inputNode) => inputNode.value === '';
+        return !requiredInputs.some(isEmpty);
+    }
 
-localStorage.clear();
+    const _validateForm = () => {
+        /**Creates a new task object, pushes such to localStorage, and updates
+         * user interface.*/
+        let newTaskObj = createTask(
+            document.querySelector('#addTaskInputText').value);
+        localStorageConfig.pushTask(newTaskObj);
+        tasksCard.showInbox();
+    }
+
+    const _invalidateForm = () => {
+        /**Adds 'is-invalid' class to classLists of all required input
+         * nodes that are empty.*/
+        const requiredInputs = _getRequiredInputs();
+        for (let i = 0; i < requiredInputs.length; i++) {
+            if (requiredInputs[i].value === '') {
+                requiredInputs[i].classList.add('is-invalid');
+            }
+        }
+    }
+
+    const _resetForm = () => {
+        /**Resets all field in modal's form.*/
+        let form = document.querySelector('#addTaskForm');
+        let formInputs = form.getElementsByTagName('input');
+        for (let i = 0; i < formInputs.length; i++) {
+            formInputs[i].value = '';
+            formInputs[i].classList.remove('is-invalid');
+        }
+    }
+
+    const _setUpProjectsDropdown = () => {
+        /**Adds all current projects to #addTaskInputProject dropdown menu.*/
+        let dropdownMenu = document.querySelector('#addTaskInputProject');
+        let projects = localStorageConfig.getLocalStorageAsObject().projects;
+        for (let i = 0; i < projects.length; i++) {
+            let newDropdownItem = document.createElement('option');
+            newDropdownItem.innerHTML = projects[i].name;
+            dropdownMenu.appendChild(newDropdownItem);
+        }
+    }
+
+    const _setUpAddTaskButton = () => {
+        /**Adds click event listener to "Add Task" button that makes it check
+         * the modal's form. If user input valid, calls _validateForm() and 
+         * closes and resets the modal. Otherwise, _invalidateForm() is 
+         * called.*/
+        let addTaskButton = document.querySelector('#addTaskButton');
+        addTaskButton.addEventListener('click', () => {
+            if (_isRequiredInputsFilled()) {
+                _validateForm();
+                _addTaskModalNode.hide();
+                _resetForm();
+            } else {
+                _invalidateForm();
+            }
+        });
+    }
+
+    const _setUpCancelButton = () => {
+        /**Adds click event listener to modal's "Cancel" button that makes it
+         * reset the modal before closing it.*/
+        let cancelButton = document.querySelector('#addTaskCancelButton');
+        cancelButton.addEventListener('click', _resetForm);
+    }
+
+    _setUpProjectsDropdown();
+    _setUpAddTaskButton();
+    _setUpCancelButton();
+})();
+
+// localStorage.clear();
