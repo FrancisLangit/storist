@@ -6,7 +6,7 @@ import { tasksCard } from './tasksCard.js';
 
 const addTaskModal = (() => {
     /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
-    let _addTaskModalNode = new bootstrap.Modal(
+    let _modalNode = new bootstrap.Modal(
         document.querySelector('#addTaskModal'));
 
     const _getRequiredInputs = () => {
@@ -78,7 +78,7 @@ const addTaskModal = (() => {
         addTaskButton.addEventListener('click', () => {
             if (_isRequiredInputsFilled()) {
                 _validateForm();
-                _addTaskModalNode.hide();
+                _modalNode.hide();
                 _resetForm();
             } else {
                 _invalidateForm();

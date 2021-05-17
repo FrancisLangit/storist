@@ -46,7 +46,6 @@ const projectsButton = (() => {
     }
 
     _setUpDropdownMenu();
-    _setUpAddProjectButton();
 })();
 
 export { projectsButton }
