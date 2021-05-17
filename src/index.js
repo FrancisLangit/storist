@@ -24,29 +24,31 @@ const projectsButton = (() => {
         return liNode;
     }
 
+    const _getNoProjectsNode = () => {
+        /**Returns .dropdown-header li node with textContent "No projects."*/
+        let noProjectsNode = document.createElement('li');
+        noProjectsNode.classList.add('dropdown-header');
+        noProjectsNode.textContent = 'No projects.';
+        return noProjectsNode;
+    }
+
     const setUpDropdownMenu = () => {
         /**Fills "Projects" button dropdown menu with nodes containing links 
          * to user's stored projects.*/
-        let projectsMenu = document.querySelector(
+        let projectsDropdown = document.querySelector(
             '#projectsButtonDropdownItems');
         let projects = localStorageConfig.getLocalStorageAsObject().projects;
 
         if (projects.length <= 0) {
-            let noProjectsNode = document.createElement('li');
-            noProjectsNode.classList.add('dropdown-header');
-            noProjectsNode.textContent = 'No projects.';
-            projectsMenu.appendChild(noProjectsNode);
+            projectsDropdown.appendChild(_getNoProjectsNode());
         } else {
             for (let i = 0; i < projects.length; i++) {
                 let projectName = projects[i].name;
-                let projectsMenuItem = _getDropdownItem(projectName)
-                projectsMenu.appendChild(projectsMenuItem);
+                let projectsDropdownItem = _getDropdownItem(projectName)
+                projectsDropdown.appendChild(projectsDropdownItem);
             }
         }
     }
-
-    // localStorageConfig.pushProject(createProject('Personal'));
-    // localStorageConfig.pushProject(createProject('None'));
 
     setUpDropdownMenu();
 
