@@ -58,17 +58,6 @@ const addTaskModal = (() => {
         }
     }
 
-    const _setUpProjectsDropdown = () => {
-        /**Adds all current projects to #addTaskInputProject dropdown menu.*/
-        let dropdownMenu = document.querySelector('#addTaskInputProject');
-        let projects = localStorageConfig.getLocalStorageAsObject().projects;
-        for (let i = 0; i < projects.length; i++) {
-            let newDropdownItem = document.createElement('option');
-            newDropdownItem.innerHTML = projects[i].name;
-            dropdownMenu.appendChild(newDropdownItem);
-        }
-    }
-
     const _setUpAddTaskButton = () => {
         /**Adds click event listener to "Add Task" button that makes it check
          * the modal's form. If user input valid, calls _validateForm() and 
@@ -93,9 +82,24 @@ const addTaskModal = (() => {
         cancelButton.addEventListener('click', _resetForm);
     }
 
-    _setUpProjectsDropdown();
+    const updateProjectsDropdown = () => {
+        /**Adds all current projects to #addTaskInputProject dropdown menu.*/
+        let dropdownMenu = document.querySelector('#addTaskInputProject');
+        dropdownMenu.innerHTML = '';
+
+        let projects = localStorageConfig.getLocalStorageAsObject().projects;
+        for (let i = 0; i < projects.length; i++) {
+            let newDropdownItem = document.createElement('option');
+            newDropdownItem.innerHTML = projects[i].name;
+            dropdownMenu.appendChild(newDropdownItem);
+        }
+    }
+
     _setUpAddTaskButton();
     _setUpCancelButton();
+    updateProjectsDropdown();
+
+    return { updateProjectsDropdown }
 })();
 
 export { addTaskModal }

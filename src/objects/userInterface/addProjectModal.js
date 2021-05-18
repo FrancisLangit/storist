@@ -3,6 +3,7 @@ window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
 import { createProject } from '../createProject.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
+import { addTaskModal } from './addTaskModal.js'
 import { projectsButton } from './projectsButton.js';
 
 const addProjectModal = (() => {
@@ -24,6 +25,7 @@ const addProjectModal = (() => {
         let projectObj = createProject(projectName);
         localStorageConfig.pushProject(projectObj);
         projectsButton.updateDropdownMenu();
+        addTaskModal.updateProjectsDropdown();
     }
 
     const _invalidateForm = () => {
