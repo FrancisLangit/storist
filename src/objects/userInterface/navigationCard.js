@@ -34,9 +34,13 @@ const projectsButton = (() => {
         let aNode = document.createElement('a');
         aNode.classList.add('dropdown-item');
         aNode.innerHTML = projectName;
+        aNode.addEventListener('click', () => {
+            tasksCard.showProject(projectName);
+        });
 
         let liNode = document.createElement('li');
         liNode.appendChild(aNode);
+        liNode.style.cursor = 'pointer';
 
         return liNode;
     }
