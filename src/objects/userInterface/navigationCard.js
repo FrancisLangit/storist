@@ -17,9 +17,9 @@ const inboxButton = (() => {
          * user's inbox tasks.*/
         let inboxButtonNode = document.querySelector('#inboxButton');
         inboxButtonNode.addEventListener('click', () => {
-            let isStyleActive = inboxButtonNode.classList.contains(
+            let isStyleOutline = inboxButtonNode.classList.contains(
                 'btn-outline-secondary') 
-            if (isStyleActive) {
+            if (isStyleOutline) {
                 updateStyle();
                 projectsButton.updateStyle();
             }
@@ -44,43 +44,69 @@ const projectsButton = (() => {
         return noProjectsNode;
     }
 
-    const _getDropdownItem = (projectName) => {
-        /**Returns a node with link to a project in user's localStorage. Meant
-         * to be placed in "Projects" button dropdown menu.
+    const _getDropdownItemLinkNode = (projectName) => {
+        /**Returns styled "a" node with event listener that updates tasksCard, 
+         * inboxButton, and projectsButton.
          * 
          * Args:
-         *  projectName (string): Name of the project to be displayed.*/
+         *  projectName : Name of project that link node will represent.*/
         let aNode = document.createElement('a');
         aNode.classList.add('dropdown-item');
         aNode.innerHTML = projectName;
+
         aNode.addEventListener('click', () => {
             tasksCard.showProject(projectName);
             inboxButton.updateStyle();
             updateStyle(projectName);
         });
 
-        let liNode = document.createElement('li');
-        liNode.appendChild(aNode);
-        liNode.style.cursor = 'pointer';
+        return aNode;
+    }
 
+    const _getDropdownItemNode = (projectName) => {
+        /**Returns a node with link to a project in user's localStorage.
+         * 
+         * Args:
+         *  projectName (string): Name of the project to be displayed.*/
+        let linkNode = _getDropdownItemLinkNode(projectName);
+        let liNode = document.createElement('li');
+        liNode.appendChild(linkNode);
+        liNode.style.cursor = 'pointer';
         return liNode;
     }
 
-    const updateDropdownMenu = () => {
-        /**Fills "Projects" button dropdown menu with nodes containing links 
-         * to user's stored projects.*/
-        let projectsDropdown = document.querySelector(
-            '#projectsButtonDropdownItems');
-        projectsDropdown.innerHTML = '';
+    const _getDropdownItems = () => {
+        /**Returns array of nodes to be appended to "Projects" button dropdown 
+         * menu. Returns null if user has no projects stored.*/
+        let projectObjects = (
+            localStorageConfig.getLocalStorageAsObject().projects);
+        if (projectObjects.length < 1) {
+            return null;
+        }
+        return projectObjects.map(projectObject => {
+            return _getDropdownItemNode(projectObject.name);
+        });
+    }
 
-        let projects = localStorageConfig.getLocalStorageAsObject().projects;
-        if (projects.length <= 0) {
-            projectsDropdown.appendChild(_getNoProjectsNode());
+    const _getResetDropdownMenu = () => {
+        /**Clears Projects button dropdown menu and returns node of such.*/
+        let dropdownMenu = (
+            document.querySelector('#projectsButtonDropdownItems'));
+        dropdownMenu.innerHTML = '';
+        return dropdownMenu;
+    }
+
+    const updateDropdownMenu = () => {
+        /**Updates "Projects" button dropdown menu. If user has projects 
+         * stored, fills such with nodes containing links to projects.*/
+        let resetDropdownMenu = _getResetDropdownMenu();
+        let dropdownItems = _getDropdownItems();
+
+        if (!dropdownItems) {
+            resetDropdownMenu.appendChild(_getNoProjectsNode());
         } else {
-            for (let i = 0; i < projects.length; i++) {
-                let projectName = projects[i].name;
-                let projectsDropdownItem = _getDropdownItem(projectName)
-                projectsDropdown.appendChild(projectsDropdownItem);
+            for (let i = 0; i < dropdownItems.length; i++) {
+                resetDropdownMenu.appendChild(dropdownItems[i]);
             }
         }
     }
