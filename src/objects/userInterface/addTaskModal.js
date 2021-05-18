@@ -82,16 +82,28 @@ const addTaskModal = (() => {
         cancelButton.addEventListener('click', _resetForm);
     }
 
-    const updateProjectsDropdown = () => {
-        /**Adds all current projects to #addTaskInputProject dropdown menu.*/
-        let dropdownMenu = document.querySelector('#addTaskInputProject');
-        dropdownMenu.innerHTML = '';
+    const _getResetProjectsDropdown = () => {
+        /**Returns cleared #addTaskInputProject dropdown menu with an appended 
+         * 'None' option.*/
+        let projectsDropdown = document.querySelector('#addTaskInputProject');
+        projectsDropdown.innerHTML = '';
 
+        let noneDropdownOption = document.createElement('option');
+        noneDropdownOption.innerHTML += 'None';
+        projectsDropdown.appendChild(noneDropdownOption);
+
+        return projectsDropdown;
+    }
+
+    const updateProjectsDropdown = () => {
+        /**Resets #addTaskInputProject dropdown menu and adds all current
+         * projects to it as choices.*/
+        let projectsDropdown = _getResetProjectsDropdown();
         let projects = localStorageConfig.getLocalStorageAsObject().projects;
         for (let i = 0; i < projects.length; i++) {
             let newDropdownItem = document.createElement('option');
             newDropdownItem.innerHTML = projects[i].name;
-            dropdownMenu.appendChild(newDropdownItem);
+            projectsDropdown.appendChild(newDropdownItem);
         }
     }
 
