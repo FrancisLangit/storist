@@ -13,11 +13,11 @@ body div.card {
   cursor: pointer;
 }
 
-#tasks {
+#tasksCardTasksDisplay {
   margin-bottom: 12.5px;
 }
 
-#tasks .task {
+#tasksCardTasksDisplay .task {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -27,7 +27,7 @@ body div.card {
   padding: 7.5px 0;
 }
 
-#tasks .task-checkbox {
+#tasksCardTasksDisplay .task-checkbox {
   border-radius: 50%;
   border: 1px solid #afafaf;
   height: 15px;
@@ -35,7 +35,7 @@ body div.card {
   width: 15px;
 }
 
-#tasks .task-checkbox:hover {
+#tasksCardTasksDisplay .task-checkbox:hover {
   background-color: #f0f0f0;
 }
 

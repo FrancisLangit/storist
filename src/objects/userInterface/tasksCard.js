@@ -24,14 +24,28 @@ const tasksCard = (() => {
         return taskNode;
     }
 
-    const _updateTasksDiv = (arrayOfTaskObjects) => {
-        /**Erases inner HTML of #tasks div and fills it with nodes made out
-         * of tasks from a passed array.
+    const _updateProjectNameDisplay = (projectName) => {
+        /**Updates inner HTML of #tasksCardProjectNameDisplay.
+         * 
+         * Args:
+         *  projectName : Name of the project to be displayed.*/
+        let projectNameDisplay = (
+            document.querySelector('#tasksCardProjectNameDisplay'));
+        if (projectName) {
+            projectNameDisplay.innerHTML = projectName;
+        } else {
+            projectNameDisplay.innerHTML = 'Inbox';
+        }
+    }
+
+    const _updateTasksDisplay = (arrayOfTaskObjects) => {
+        /**Erases inner HTML of #tasksCardTasksDisplay div and fills it with
+         * nodes made out of tasks from a passed array.
          * 
          * Args:
          *  arrayOfTaskObjects (array) : Array holding tasks objects to be 
          *      made nodes out of.*/
-        let tasksDiv = document.querySelector('#tasks');
+        let tasksDiv = document.querySelector('#tasksCardTasksDisplay');
         tasksDiv.innerHTML = '';
         for (let i = 0; i < arrayOfTaskObjects.length; i++) {
             tasksDiv.append(_createTaskNode(arrayOfTaskObjects[i]));
@@ -42,7 +56,8 @@ const tasksCard = (() => {
         /**Updates the #tasks div to show only those tasks that are in the 
          * user's inbox.*/
         let inbox = localStorageConfig.getLocalStorageAsObject().inbox;
-        _updateTasksDiv(inbox);
+        _updateProjectNameDisplay('Inbox');
+        _updateTasksDisplay(inbox);
     }
 
     const showProject = (targetProjectName) => {
@@ -53,7 +68,8 @@ const tasksCard = (() => {
          *  targetProjectName (string) : Name of the project holding tasks to
          *      be displayed.*/        
         let project = localStorageConfig.getProjectObject(targetProjectName);
-        _updateTasksDiv(project.tasks);
+        _updateProjectNameDisplay(project.name);
+        _updateTasksDisplay(project.tasks);
     }
 
     showInbox();

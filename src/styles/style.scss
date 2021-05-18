@@ -13,24 +13,26 @@ body {
     cursor: pointer;
 }
 
-#tasks {
-    margin-bottom: 12.5px;
+#tasksCard {
+    &TasksDisplay {
+        margin-bottom: 12.5px;
 
-    .task {
-        align-items: center;
-        display: flex;
-        padding: 7.5px 0;
-    
-        &-checkbox {
-            border-radius: 50%;
-            border: 1px solid rgb(175, 175, 175);
-            height: 15px;
-            margin-right: 10px;
-            width: 15px;
-        }
-    
-        &-checkbox:hover {
-            background-color: rgb(240, 240, 240);
+        .task {
+            align-items: center;
+            display: flex;
+            padding: 7.5px 0;
+        
+            &-checkbox {
+                border-radius: 50%;
+                border: 1px solid rgb(175, 175, 175);
+                height: 15px;
+                margin-right: 10px;
+                width: 15px;
+            }
+        
+            &-checkbox:hover {
+                background-color: rgb(240, 240, 240);
+            }
         }
     }
 }
