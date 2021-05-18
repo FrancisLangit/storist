@@ -4,32 +4,33 @@ import { tasksCard } from './tasksCard.js';
 const inboxButton = (() => {
     /**"Inbox" button found on navigation card.*/
     
-    const toggleStyle = () => {
-        /**Checks if 'btn-outline-secondary' in classList of inbox button 
-         * node. Replaces such with 'btn-secondary' is so.*/
-        let _inboxButtonNode = document.querySelector('#inboxButton');
-        _inboxButtonNode.classList.toggle('btn-outline-secondary');
-        _inboxButtonNode.classList.toggle('btn-secondary');
+    const updateStyle = () => {
+        /**Replaces 'btn-secondary' with 'btn-dark' in classList of inbox 
+         * button node.*/
+        let inboxButtonNode = document.querySelector('#inboxButton');
+        inboxButtonNode.classList.toggle('btn-outline-secondary');
+        inboxButtonNode.classList.toggle('btn-dark');
     }
 
     const _setUpInboxButton = () => {
         /**Adds event listener to inbox button. Makes the tasks card only show
          * user's inbox tasks.*/
-        let _inboxButtonNode = document.querySelector('#inboxButton');
-        _inboxButtonNode.addEventListener('click', () => {
-            let isStyleActive = _inboxButtonNode.classList.contains(
+        let inboxButtonNode = document.querySelector('#inboxButton');
+        inboxButtonNode.addEventListener('click', () => {
+            let isStyleActive = inboxButtonNode.classList.contains(
                 'btn-outline-secondary') 
             if (isStyleActive) {
-                toggleStyle();
+                updateStyle();
+                projectsButton.updateStyle();
             }
             tasksCard.showInbox();
         });
     }
 
-    toggleStyle();
+    updateStyle();
     _setUpInboxButton();
 
-    return { toggleStyle }
+    return { updateStyle }
 })();
 
 const projectsButton = (() => {
@@ -54,7 +55,8 @@ const projectsButton = (() => {
         aNode.innerHTML = projectName;
         aNode.addEventListener('click', () => {
             tasksCard.showProject(projectName);
-            inboxButton.toggleStyle();
+            inboxButton.updateStyle();
+            updateStyle(projectName);
         });
 
         let liNode = document.createElement('li');
@@ -83,9 +85,23 @@ const projectsButton = (() => {
         }
     }
 
+    const updateStyle = (projectName) => {
+        /**Replaces 'btn-secondary' with 'btn-dark' in classList of project 
+         * button node and updates its text.*/
+        let projectsButton = document.querySelector('#projectsButton');
+        projectsButton.classList.toggle('btn-outline-secondary');
+        projectsButton.classList.toggle('btn-dark');
+
+        if (projectName) {
+            projectsButton.innerHTML = `Project: ${projectName}`;
+        } else {
+            projectsButton.innerHTML = 'Projects';
+        } 
+    }
+
     updateDropdownMenu();
 
-    return { updateDropdownMenu }
+    return { updateDropdownMenu, updateStyle }
 })();
 
 export { inboxButton, projectsButton }
