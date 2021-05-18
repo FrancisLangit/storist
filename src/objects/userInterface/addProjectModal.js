@@ -4,7 +4,7 @@ import { createProject } from '../createProject.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
 import { addTaskModal } from './addTaskModal.js'
-import { projectsButton } from './projectsButton.js';
+import { projectsButton } from './navigationCard.js';
 
 const addProjectModal = (() => {
     /**Modal where user fills out form to add a new project.*/

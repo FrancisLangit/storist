@@ -3,7 +3,7 @@ import './styles/style.css';
 
 import { addProjectModal } from './objects/userInterface/addProjectModal.js';
 import { addTaskModal } from './objects/userInterface/addTaskModal.js';
-import { projectsButton } from './objects/userInterface/projectsButton.js';
+import { projectsButton } from './objects/userInterface/navigationCard.js';
 import { tasksCard } from './objects/userInterface/tasksCard.js';
 
 const settings = (() => {
