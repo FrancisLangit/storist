@@ -4,14 +4,32 @@ import { tasksCard } from './tasksCard.js';
 const inboxButton = (() => {
     /**"Inbox" button found on navigation card.*/
     
+    const toggleStyle = () => {
+        /**Checks if 'btn-outline-secondary' in classList of inbox button 
+         * node. Replaces such with 'btn-secondary' is so.*/
+        let _inboxButtonNode = document.querySelector('#inboxButton');
+        _inboxButtonNode.classList.toggle('btn-outline-secondary');
+        _inboxButtonNode.classList.toggle('btn-secondary');
+    }
+
     const _setUpInboxButton = () => {
         /**Adds event listener to inbox button. Makes the tasks card only show
          * user's inbox tasks.*/
         let _inboxButtonNode = document.querySelector('#inboxButton');
-        _inboxButtonNode.addEventListener('click', tasksCard.showInbox);
+        _inboxButtonNode.addEventListener('click', () => {
+            let isStyleActive = _inboxButtonNode.classList.contains(
+                'btn-outline-secondary') 
+            if (isStyleActive) {
+                toggleStyle();
+            }
+            tasksCard.showInbox();
+        });
     }
 
+    toggleStyle();
     _setUpInboxButton();
+
+    return { toggleStyle }
 })();
 
 const projectsButton = (() => {
@@ -36,6 +54,7 @@ const projectsButton = (() => {
         aNode.innerHTML = projectName;
         aNode.addEventListener('click', () => {
             tasksCard.showProject(projectName);
+            inboxButton.toggleStyle();
         });
 
         let liNode = document.createElement('li');
