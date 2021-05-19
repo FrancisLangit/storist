@@ -16,6 +16,9 @@ const createTaskNode = (taskObject) => {
 
         checkBox.addEventListener('click', () => {
             taskObject.isDone = !taskObject.isDone;
+
+            localStorageConfig.editTask(taskObject.id, taskObject);
+
             let taskText = checkBox.parentNode.querySelector('.task-text');
             taskText.classList.toggle('taskDone');
         });

@@ -74,8 +74,45 @@ const localStorageConfig = (() => {
         _updateLocalStorage(currentStorage);
     }
 
+    const editTask = (targetTaskId, newTaskObject) => {
+        let currentStorage = getLocalStorageAsObject();
+
+        let isInInbox = currentStorage.inbox.some(taskObj => {
+            return taskObj.id === targetTaskId;
+        });
+    
+        if (isInInbox) {
+            let newInbox = currentStorage.inbox.map(taskObj => {
+                if (taskObj.id === targetTaskId) {
+                    return taskObj = newTaskObject
+                };
+            });
+            currentStorage.inbox = newInbox;
+        } else {
+            for (let i = 0; i < currentStorage.projects.length; i++) {
+                let project = currentStorage.projects[i]
+
+                let isInProject = project.tasks.some(taskObj => {
+                    return taskObj.id === targetTaskId;
+                });
+
+                if (isInProject) {
+                    let newProject = project.tasks.map(taskObj => {
+                        if (taskObj.id === targetTaskId) {
+                            return taskObj = newTaskObject
+                        }; 
+                    });
+                    project = newProject;
+                    break;
+                }
+            }
+        }
+        
+        _updateLocalStorage(currentStorage);
+    }
+
     return { getLocalStorageAsObject, getProjectObject, pushProject, 
-        pushTask }
+        pushTask, editTask }
 })();
 
 export { localStorageConfig }
