@@ -1,5 +1,7 @@
 import { localStorageConfig } from '../localStorageConfig.js';
 
+import { addTaskModal } from './addTaskModal.js';
+
 const tasksCard = (() => {
     /**Card showing currently displayed tasks, either from user's Inbox or a
      * specific project of theirs. */
@@ -72,7 +74,17 @@ const tasksCard = (() => {
         _updateTasksDisplay(project.tasks);
     }
 
+    const _setUpAddTaskButton = () => {
+        /**Adds click listener to "Add Task" button. Makes it update the 
+         * "Projects" dropdown menu of the "Add Task" modal.*/
+        let addTaskButton = document.querySelector('#tasksCardAddTaskButton');
+        addTaskButton.addEventListener('click', () => {
+            addTaskModal.setProjectsDropdown();
+        });
+    }
+
     showInbox();
+    _setUpAddTaskButton();
 
     return { showInbox, showProject };
 })();

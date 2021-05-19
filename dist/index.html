@@ -44,10 +44,18 @@
     <!-- Tasks -->
     <div class="card">
         <div class="card-body">
-            <h3 id="tasksCardProjectNameDisplay" class="card-title">Inbox</h3>
+            <!-- Tasks Card Header: Displays project currently being viewed. -->
+            <h3 id="tasksCardProjectNameDisplay" class="card-title">
+                Inbox
+            </h3>
+
             <hr />
+            
+            <!-- Tasks Card Body: Div holding tasks being displayed. -->
             <div id="tasksCardTasksDisplay"></div>
-            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+            
+            <!-- Add Task Button -->
+            <button type="button" id="tasksCardAddTaskButton" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal">
                 + Add Task
             </button>
         </div>

@@ -115,11 +115,34 @@ const addTaskModal = (() => {
         }
     }
 
+    const setProjectsDropdown = () => {
+        /**Makes selected option in "Projects" dropdown menu equal to current
+         * project being viewed. Sets selected option to "None" if current 
+         * view is Inbox.*/
+        let projectNameDisplay = (
+            document.querySelector('#tasksCardProjectNameDisplay').innerHTML);
+        let projectsDropdown = (
+            document.querySelector("#addTaskInputProject"));
+        let projectsDropdownOptions = (
+            projectsDropdown.querySelectorAll('option'));
+
+        for (let i = 0; i < projectsDropdownOptions.length; i++) {
+            let optionNode = projectsDropdownOptions[i];
+            if (projectNameDisplay === optionNode.value) {
+                optionNode.selected = true;
+                break;
+            } else if (projectNameDisplay === 'Inbox') {
+                projectsDropdown.value = 'None';
+                break;
+            }
+        }
+    }
+
     _setUpAddTaskButton();
     _setUpCancelButton();
     updateProjectsDropdown();
 
-    return { updateProjectsDropdown }
+    return { updateProjectsDropdown, setProjectsDropdown }
 })();
 
 export { addTaskModal }
