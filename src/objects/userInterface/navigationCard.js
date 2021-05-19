@@ -132,7 +132,10 @@ const projectsButton = (() => {
             projectsButton.classList.remove('btn-outline-secondary');
             projectsButton.classList.add('btn-dark');
         } else {
-            projectsButton.innerHTMargument
+            projectsButton.innerHTML = 'Projects';
+            projectsButton.classList.remove('btn-dark');
+            projectsButton.classList.add('btn-outline-secondary');
+        } 
     }
 
     updateDropdownMenu();

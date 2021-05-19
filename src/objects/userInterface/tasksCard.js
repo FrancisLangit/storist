@@ -40,6 +40,21 @@ const tasksCard = (() => {
         }
     }
 
+    const _toggleNoTasksNode = (showNode) => {
+        /**Removes or adds class "d-none" to #tasksCardNoTasks node dependent 
+         * on showNode argument.
+         * 
+         * Args:
+         *  showNode (boolean) : True if node is to be shown. False, if
+         *      otherwise.*/
+        let noTasksNode = document.querySelector('#tasksCardNoTasks');
+        if (showNode) {
+            noTasksNode.classList.remove('d-none');
+        } else {
+            noTasksNode.classList.add('d-none');
+        }
+    }
+
     const _updateTasksDisplay = (arrayOfTaskObjects) => {
         /**Erases inner HTML of #tasksCardTasksDisplay div and fills it with
          * nodes made out of tasks from a passed array.
@@ -49,11 +64,16 @@ const tasksCard = (() => {
          *      made nodes out of.*/
         let tasksDiv = document.querySelector('#tasksCardTasksDisplay');
         tasksDiv.innerHTML = '';
-        for (let i = 0; i < arrayOfTaskObjects.length; i++) {
-            tasksDiv.append(_createTaskNode(arrayOfTaskObjects[i]));
+        if (arrayOfTaskObjects.length > 0) {
+            _toggleNoTasksNode();
+            for (let i = 0; i < arrayOfTaskObjects.length; i++) {
+                tasksDiv.append(_createTaskNode(arrayOfTaskObjects[i]));
+            }
+        } else {
+            _toggleNoTasksNode(true);
         }
     }
-
+    
     const showInbox = () => {
         /**Updates the #tasks div to show only those tasks that are in the 
          * user's inbox.*/
