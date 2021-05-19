@@ -3,8 +3,9 @@ window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
 import { createProject } from '../createProject.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
-import { addTaskModal } from './addTaskModal.js'
+import { addTaskModal } from './addTaskModal.js';
 import { projectsButton } from './navigationCard.js';
+import { tasksCard } from './tasksCard.js';
 
 const addProjectModal = (() => {
     /**Modal where user fills out form to add a new project.*/
@@ -19,13 +20,15 @@ const addProjectModal = (() => {
 
     const _validateForm = () => {
         /**Creates a new project object out of user input, pushes such to 
-         * localStorage, and updates the Projects button dropdown menu.*/
+         * localStorage, updates the Projects button dropdown menu and updates
+         * the tasks card.*/
         let projectName = (
             document.querySelector('#addProjectInputName').value);
         let projectObj = createProject(projectName);
         localStorageConfig.pushProject(projectObj);
         projectsButton.updateDropdownMenu();
         addTaskModal.updateProjectsDropdown();
+        tasksCard.showProject(projectName);
     }
 
     const _invalidateForm = () => {
