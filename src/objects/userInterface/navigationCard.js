@@ -3,14 +3,23 @@ import { tasksCard } from './tasksCard.js';
 
 const inboxButton = (() => {
     /**"Inbox" button found on navigation card.*/
-    
-    const updateStyle = () => {
-        /**Replaces 'btn-secondary' with 'btn-dark' in classList of inbox 
-         * button node.*/
-        let inboxButtonNode = document.querySelector('#inboxButton');
-        inboxButtonNode.classList.toggle('btn-outline-secondary');
-        inboxButtonNode.classList.toggle('btn-dark');
+
+    const setStyleAsFilled = () => {
+        /**Replaces 'btn-outline-secondary' with 'btn-dark' in classList of 
+         * inbox button node.*/
+         let inboxButtonNode = document.querySelector('#inboxButton');
+         inboxButtonNode.classList.remove('btn-outline-secondary');
+         inboxButtonNode.classList.add('btn-dark');
     }
+
+    const setStyleAsOutline  = () => {
+        /**Replaces 'btn-dark' with 'btn-outline-secondary' in classList of 
+         * inbox button node.*/
+        let inboxButtonNode = document.querySelector('#inboxButton');
+        inboxButtonNode.classList.remove('btn-dark');
+        inboxButtonNode.classList.add('btn-outline-secondary');
+    }
+
 
     const _setUpInboxButton = () => {
         /**Adds event listener to inbox button. Makes the tasks card only show
@@ -20,17 +29,17 @@ const inboxButton = (() => {
             let isStyleOutline = inboxButtonNode.classList.contains(
                 'btn-outline-secondary') 
             if (isStyleOutline) {
-                updateStyle();
+                setStyleAsFilled();
                 projectsButton.updateStyle();
             }
             tasksCard.showInbox();
         });
     }
 
-    updateStyle();
+    setStyleAsFilled();
     _setUpInboxButton();
 
-    return { updateStyle }
+    return { setStyleAsFilled, setStyleAsOutline }
 })();
 
 const projectsButton = (() => {
@@ -56,7 +65,7 @@ const projectsButton = (() => {
 
         aNode.addEventListener('click', () => {
             tasksCard.showProject(projectName);
-            inboxButton.updateStyle();
+            inboxButton.setStyleAsOutline();
             updateStyle(projectName);
         });
 
@@ -112,17 +121,18 @@ const projectsButton = (() => {
     }
 
     const updateStyle = (projectName) => {
-        /**Replaces 'btn-secondary' with 'btn-dark' in classList of project 
-         * button node and updates its text.*/
+        /**Updates the styling of the button. Sets as filled or outline 
+         * dependent on whether argument is passed.
+         * 
+         * Args:
+         *  projectName (string) : Name of project to be displayed. */
         let projectsButton = document.querySelector('#projectsButton');
-        projectsButton.classList.toggle('btn-outline-secondary');
-        projectsButton.classList.toggle('btn-dark');
-
         if (projectName) {
             projectsButton.innerHTML = `Project: ${projectName}`;
+            projectsButton.classList.remove('btn-outline-secondary');
+            projectsButton.classList.add('btn-dark');
         } else {
-            projectsButton.innerHTML = 'Projects';
-        } 
+            projectsButton.innerHTMargument
     }
 
     updateDropdownMenu();
