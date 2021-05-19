@@ -3,7 +3,9 @@ const createTask = (text) => {
      * 
      * Args:
      *  text (string) : Main text of the task.*/
-    return { text }
+    let isDone = false;
+    let id = 'task_' + Math.random().toString(36).substr(2, 9);
+    return { text, isDone, id}
 }
 
 export { createTask }

@@ -1,6 +1,7 @@
 const localStorageConfig = (() => {
     /**Holds methods allowing for the configuration and usage of the user's 
      * localStorage "storist" array.*/
+    
     const _checkLocalStorage = () => {
         /**Checks 'storist' object in users localStorage and sets it up if it
          * is missing.*/

@@ -25,6 +25,7 @@ body {
             &-checkbox {
                 border-radius: 50%;
                 border: 1px solid rgb(175, 175, 175);
+                cursor: pointer;
                 height: 15px;
                 margin-right: 10px;
                 width: 15px;
@@ -33,6 +34,10 @@ body {
             &-checkbox:hover {
                 background-color: rgb(240, 240, 240);
             }
+        }
+
+        .taskDone {
+            text-decoration: line-through;
         }
     }
 }

@@ -9,6 +9,13 @@ const createTaskNode = (taskObject) => {
      *  taskObject (object) : Task object holding data that the div node
      *      will be constructed out of.*/
 
+    const _createCheckBox = () => {
+        /**Returns div node with class "task-checkbox".*/
+        let checkBox = document.createElement('div');
+        checkBox.classList.add('task-checkbox');
+        return checkBox;
+    }
+
     const _createTaskText = () => {
         /**Returns div node with class "task-text" and textContent equal to
          * text property of taskObject.*/
@@ -18,15 +25,8 @@ const createTaskNode = (taskObject) => {
         return taskText;
     }
 
-    const _createCheckBox = () => {
-        /**Returns div node with class "task-checkbox". */
-        let checkBox = document.createElement('div');
-        checkBox.classList.add('task-checkbox');
-        return checkBox;
-    }
-
-    let taskText = _createTaskText();
     let taskCheckBox = _createCheckBox();
+    let taskText = _createTaskText();
     let taskNode = document.createElement('div');
     taskNode.classList.add('task');
     taskNode.append(taskCheckBox, taskText);
