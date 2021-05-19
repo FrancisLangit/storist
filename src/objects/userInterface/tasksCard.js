@@ -13,6 +13,13 @@ const createTaskNode = (taskObject) => {
         /**Returns div node with class "task-checkbox".*/
         let checkBox = document.createElement('div');
         checkBox.classList.add('task-checkbox');
+
+        checkBox.addEventListener('click', () => {
+            taskObject.isDone = !taskObject.isDone;
+            let taskText = checkBox.parentNode.querySelector('.task-text');
+            taskText.classList.toggle('taskDone');
+        });
+
         return checkBox;
     }
 
@@ -20,16 +27,21 @@ const createTaskNode = (taskObject) => {
         /**Returns div node with class "task-text" and textContent equal to
          * text property of taskObject.*/
         let taskText = document.createElement('div');
-        taskText.classList.add('task-text');
         taskText.textContent = taskObject.text;
+        taskText.classList.add('task-text');
+        if (taskObject.isDone) {
+            taskText.classList.add('taskDone');
+        }
         return taskText;
     }
 
     let taskCheckBox = _createCheckBox();
     let taskText = _createTaskText();
+
     let taskNode = document.createElement('div');
-    taskNode.classList.add('task');
     taskNode.append(taskCheckBox, taskText);
+    taskNode.id = taskObject.id;
+    taskNode.classList.add('task');
 
     return taskNode;
 }
