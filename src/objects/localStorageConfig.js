@@ -88,24 +88,25 @@ const localStorageConfig = (() => {
                 };
             });
             currentStorage.inbox = newInbox;
-        } else {
-            for (let i = 0; i < currentStorage.projects.length; i++) {
-                let project = currentStorage.projects[i]
+            
+        // } else {
+        //     for (let i = 0; i < currentStorage.projects.length; i++) {
+        //         let project = currentStorage.projects[i]
 
-                let isInProject = project.tasks.some(taskObj => {
-                    return taskObj.id === targetTaskId;
-                });
+        //         let isInProject = project.tasks.some(taskObj => {
+        //             return taskObj.id === targetTaskId;
+        //         });
 
-                if (isInProject) {
-                    let newProject = project.tasks.map(taskObj => {
-                        if (taskObj.id === targetTaskId) {
-                            return taskObj = newTaskObject
-                        }; 
-                    });
-                    project = newProject;
-                    break;
-                }
-            }
+        //         if (isInProject) {
+        //             let newProject = project.tasks.map(taskObj => {
+        //                 if (taskObj.id === targetTaskId) {
+        //                     return taskObj = newTaskObject
+        //                 }; 
+        //             });
+        //             project = newProject;
+        //             break;
+        //         }
+        //     }
         }
         
         _updateLocalStorage(currentStorage);

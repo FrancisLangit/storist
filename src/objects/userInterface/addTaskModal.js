@@ -30,18 +30,20 @@ const addTaskModal = (() => {
 
     const _validateForm = () => {
         /**Creates a new task object, pushes such to localStorage, and updates
-         * user interface.*/
-        let newTaskObject = createTask(
+         * user interface.*/ 
+        let textFieldValue = (
             document.querySelector('#addTaskInputText').value);
-        let targetProjectName = (
+        let projectFieldValue = (
             document.querySelector('#addTaskInputProject').value);
-
-        if (targetProjectName === 'None') {
+            
+        if (projectFieldValue === 'None') {
+            let newTaskObject = createTask(textFieldValue);
             localStorageConfig.pushTask(newTaskObject);
             tasksCard.showInbox();
         } else {
-            localStorageConfig.pushTask(newTaskObject, targetProjectName)
-            tasksCard.showProject(targetProjectName);
+            let newTaskObject = createTask(textFieldValue, projectFieldValue);
+            localStorageConfig.pushTask(newTaskObject, projectFieldValue)
+            tasksCard.showProject(projectFieldValue);
         }
     }
 
