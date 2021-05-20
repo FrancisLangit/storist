@@ -1,8 +1,8 @@
 body {
   display: block;
   margin: 0 auto;
-  padding: 25px;
-  width: 95%;
+  padding: 100px 0;
+  width: 500px;
 }
 
 body div.card {
@@ -38,18 +38,6 @@ body div.card {
 
 #tasksCardTasksDisplay .task-checkbox:hover {
   background-color: #f0f0f0;
-}
-
-#tasksCardTasksDisplay .task-buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 10px;
-}
-
-#tasksCardTasksDisplay .task-buttons button {
-  font-size: 0.65em;
-  margin-right: 5px;
 }
 
 #tasksCardTasksDisplay .taskDone {
