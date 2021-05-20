@@ -46,10 +46,10 @@ const localStorageConfig = (() => {
          * 
          * Args:
          *  newProjectObject (object) : Project object to be pushed.*/
-        let currentStorage = getLocalStorageAsObject();
-        let projects = currentStorage['projects'];
+        let storage = getLocalStorageAsObject();
+        let projects = storage['projects'];
         projects.push(newProjectObject);
-        _updateLocalStorage(currentStorage);
+        _updateLocalStorage(storage);
     }
 
     const pushTask = (newTaskObject, targetProjectName) => {
@@ -60,50 +60,45 @@ const localStorageConfig = (() => {
          *  newTaskObject (object) : Task object to be pushed.
          *  targetProjectName (string) : Name of the target project where
          *      newTaskObject will be pushed to.*/
-        let currentStorage = getLocalStorageAsObject();
+        let storage = getLocalStorageAsObject();
         if (!targetProjectName) {
-            currentStorage['inbox'].push(newTaskObject);
+            storage['inbox'].push(newTaskObject);
         } else {
-            let targetProjectObject = currentStorage.projects.find(
-                (projectObject) => {
-                    return projectObject.name === targetProjectName;
-                }
-            );
+            let targetProjectObject = storage.projects.find(projectObject => {
+                return projectObject.name === targetProjectName;
+            });
             targetProjectObject['tasks'].push(newTaskObject);
         }
-        _updateLocalStorage(currentStorage);
+        _updateLocalStorage(storage);
+    }
+
+    const _replaceTaskInArray = (newTaskObject, arrayOfTaskObjects) => {
+        /**Replaces a task object with another in an array of task objects.
+         * 
+         * Args:
+         *  newTaskObject (object) : Task object to replace with.
+         *  arrayOfTaskObjects (array) : Array of made up of task objects.*/
+        return arrayOfTaskObjects.map(
+            task => (task.id === newTaskObject.id) ? newTaskObject: task);
     }
 
     const editTask = (newTaskObject) => {
-        let currentStorage = getLocalStorageAsObject();
-
+        /**Replaces a task object with its corresponding match in user's 
+         * local storage.
+         * 
+         * Args:
+         *  newTaskObject (object) : Task object to replace with.*/
+        let storage = getLocalStorageAsObject();
         if (!newTaskObject.parentProjectName) {
-            let newInbox = currentStorage.inbox.map(taskObject => {
-                if (taskObject.id === newTaskObject.id) {
-                    return taskObject = newTaskObject;
-                }
-            });
-            currentStorage.inbox = newInbox;
-            _updateLocalStorage(currentStorage);
+            storage.inbox = _replaceTaskInArray(newTaskObject, storage.inbox);
         } else {
-            let projects = currentStorage.projects;
-            
-            let targetProjectIndex = projects.findIndex(projectObj => {
-                return projectObj.name === newTaskObject.parentProjectName;
+            let projectIndex = storage.projects.findIndex(project => { 
+                return project.name === newTaskObject.parentProjectName; 
             });
-
-            let newProjectTasks = projects[targetProjectIndex].tasks.map(
-                taskObject => {
-                    if (taskObject.id === newTaskObject.id) {
-                        return taskObject = newTaskObject;
-                    }
-                }
-            );
-
-            projects[targetProjectIndex].tasks = newProjectTasks;
-            currentStorage.projects = projects;
-            _updateLocalStorage(currentStorage);
+            storage.projects[projectIndex].tasks = _replaceTaskInArray(
+                newTaskObject, storage.projects[projectIndex].tasks);
         }
+        _updateLocalStorage(storage);
     }
 
     return { getLocalStorageAsObject, getProjectObject, pushProject, 
