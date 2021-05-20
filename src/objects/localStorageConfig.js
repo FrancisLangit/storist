@@ -74,42 +74,36 @@ const localStorageConfig = (() => {
         _updateLocalStorage(currentStorage);
     }
 
-    const editTask = (targetTaskId, newTaskObject) => {
+    const editTask = (newTaskObject) => {
         let currentStorage = getLocalStorageAsObject();
 
-        let isInInbox = currentStorage.inbox.some(taskObj => {
-            return taskObj.id === targetTaskId;
-        });
-    
-        if (isInInbox) {
-            let newInbox = currentStorage.inbox.map(taskObj => {
-                if (taskObj.id === targetTaskId) {
-                    return taskObj = newTaskObject
-                };
+        if (!newTaskObject.parentProjectName) {
+            let newInbox = currentStorage.inbox.map(taskObject => {
+                if (taskObject.id === newTaskObject.id) {
+                    return taskObject = newTaskObject;
+                }
             });
             currentStorage.inbox = newInbox;
+            _updateLocalStorage(currentStorage);
+        } else {
+            let projects = currentStorage.projects;
             
-        // } else {
-        //     for (let i = 0; i < currentStorage.projects.length; i++) {
-        //         let project = currentStorage.projects[i]
+            let targetProjectIndex = projects.findIndex(projectObj => {
+                return projectObj.name === newTaskObject.parentProjectName;
+            });
 
-        //         let isInProject = project.tasks.some(taskObj => {
-        //             return taskObj.id === targetTaskId;
-        //         });
+            let newProjectTasks = projects[targetProjectIndex].tasks.map(
+                taskObject => {
+                    if (taskObject.id === newTaskObject.id) {
+                        return taskObject = newTaskObject;
+                    }
+                }
+            );
 
-        //         if (isInProject) {
-        //             let newProject = project.tasks.map(taskObj => {
-        //                 if (taskObj.id === targetTaskId) {
-        //                     return taskObj = newTaskObject
-        //                 }; 
-        //             });
-        //             project = newProject;
-        //             break;
-        //         }
-        //     }
+            projects[targetProjectIndex].tasks = newProjectTasks;
+            currentStorage.projects = projects;
+            _updateLocalStorage(currentStorage);
         }
-        
-        _updateLocalStorage(currentStorage);
     }
 
     return { getLocalStorageAsObject, getProjectObject, pushProject, 
