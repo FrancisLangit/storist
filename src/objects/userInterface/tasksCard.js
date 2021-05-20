@@ -30,18 +30,48 @@ const createTaskNode = (taskObject) => {
          * text property of taskObject.*/
         let taskText = document.createElement('div');
         taskText.textContent = taskObject.text;
-        taskText.classList.add('task-text');
+        taskText.classList.add('task-text', 'card-text');
         if (taskObject.isDone) {
             taskText.classList.add('taskDone');
         }
         return taskText;
     }
 
+    const _createEditButton = () => {
+        /**Returns a button node serving as task's Edit button.*/
+        let editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.type = 'button';
+        editButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
+        return editButton;
+    }
+
+    const _createDeleteButton = () => {
+        /**Returns a button node serving as task's delete button.*/
+        let deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.type = 'button';
+        deleteButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
+        return deleteButton;
+    }
+
+    const _createButtons = () => {
+        /**Returns a node containing edit and delete buttons of task.*/
+        let deleteButton = _createDeleteButton();
+        let editButton = _createEditButton();
+
+        let buttonsContainer = document.createElement('div');
+        buttonsContainer.append(editButton, deleteButton);
+        buttonsContainer.classList.add('task-buttons');
+        return buttonsContainer;
+    }
+
     let taskCheckBox = _createCheckBox();
     let taskText = _createTaskText();
+    let taskButtons = _createButtons();
 
     let taskNode = document.createElement('div');
-    taskNode.append(taskCheckBox, taskText);
+    taskNode.append(taskCheckBox, taskText, taskButtons);
     taskNode.id = taskObject.id;
     taskNode.classList.add('task');
 
