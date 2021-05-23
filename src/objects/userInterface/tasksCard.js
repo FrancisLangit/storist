@@ -25,8 +25,12 @@ const createTaskNode = (taskObject) => {
         return checkBox;
     }
 
+    const _expandTaskTextNode = () => {
+        console.log('hello world');
+    }
+
     const _createTaskText = () => {
-        /**Returns div node with class "task-text" and textContent equal to
+        /**Returns div node with class "task-text", textContent equal to
          * text property of taskObject.*/
         let taskText = document.createElement('div');
         taskText.textContent = taskObject.text;
@@ -34,6 +38,7 @@ const createTaskNode = (taskObject) => {
         if (taskObject.isDone) {
             taskText.classList.add('taskDone');
         }
+        taskText.addEventListener('click', _expandTaskTextNode);
         return taskText;
     }
 
