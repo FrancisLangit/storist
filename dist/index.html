@@ -198,12 +198,16 @@
                         <div id="addTaskForm" class="mb-3">
                             <!-- "Text" Input -->
                             <div class="mb-3">
-                                <label for="addTaskInputText" class="form-label">Task</label>
+                                <label 
+                                    for="addTaskInputText" 
+                                    class="form-label">
+                                        Task
+                                </label>
                                 <input 
                                     type="text" 
                                     id="addTaskInputText" 
                                     class="form-control" 
-                                    aria-describedby="addTaskInputTextHelp" 
+                                    aria-describedby="addTaskInputTextHelp"
                                     placeholder="Required" 
                                     maxlength="45">
                                 <div 
@@ -285,7 +289,7 @@
                                     type="text" 
                                     id="editTaskInputText" 
                                     class="form-control" 
-                                    aria-describedby="editTaskInputTextHelp" 
+                                    aria-describedby="editTaskInputTextHelp"
                                     placeholder="Required" 
                                     maxlength="45">
                                 <div 
@@ -318,6 +322,15 @@
                 <!-- Buttons -->
                 <div class="modal-footer">
                     <button 
+                        id="editTaskDeleteButton" 
+                        type="button" 
+                        class="btn btn-outline-danger me-auto"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteTaskModal"
+                        data-bs-dismiss="modal">
+                            Delete Task
+                    </button>
+                    <button 
                         id="editTaskCancelButton" 
                         type="button" 
                         class="btn btn-outline-secondary" 
@@ -335,7 +348,46 @@
         </div>
     </div>
 
+    <!-- "Delete Task" Modal -->
+    <div 
+        class="modal fade" 
+        id="deleteTaskModal" 
+        tabindex="-1" 
+        aria-labelledby="deleteTaskModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 
+                        class="modal-title" 
+                        id="deleteTaskModalLabel">
+                            Delete Task
+                    </h5>
+                </div>
 
+                <!-- Body -->
+                <div class="modal-body">
+                    Are you sure you want to delete the task?
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary" 
+                        data-bs-dismiss="modal">
+                            Cancel
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-danger">
+                            Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

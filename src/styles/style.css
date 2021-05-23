@@ -49,6 +49,11 @@ body div.card {
   background-color: #f0f0f0;
 }
 
+#tasksCardTasksDisplay .task-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 #tasksCardTasksDisplay .taskDone {
   text-decoration: line-through;
 }

@@ -43,6 +43,11 @@ body {
             &-checkbox:hover {
                 background-color: rgb(240, 240, 240);
             }
+
+            &-text:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
 
         .taskDone {

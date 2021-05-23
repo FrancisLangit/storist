@@ -25,10 +25,6 @@ const createTaskNode = (taskObject) => {
         return checkBox;
     }
 
-    const _expandTaskTextNode = () => {
-        console.log('hello world');
-    }
-
     const _createTaskText = () => {
         /**Returns div node with class "task-text", textContent equal to
          * text property of taskObject.*/
@@ -38,7 +34,8 @@ const createTaskNode = (taskObject) => {
         if (taskObject.isDone) {
             taskText.classList.add('taskDone');
         }
-        taskText.addEventListener('click', _expandTaskTextNode);
+        taskText.setAttribute('data-bs-toggle', 'modal');
+        taskText.setAttribute('data-bs-target', '#editTaskModal');
         return taskText;
     }
 
