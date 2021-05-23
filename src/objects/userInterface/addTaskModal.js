@@ -28,22 +28,26 @@ const addTaskModal = (() => {
         return !requiredInputs.some(isEmpty);
     }
 
-    const _validateForm = () => {
+    const _validateFormIntoStorage = (taskText, taskProjectName) => {
         /**Creates a new task object, pushes such to localStorage, and updates
          * user interface.*/ 
-        let textFieldValue = (
-            document.querySelector('#addTaskInputText').value);
-        let projectFieldValue = (
-            document.querySelector('#addTaskInputProject').value);
-            
-        if (projectFieldValue === 'None') {
-            let newTaskObject = createTask(textFieldValue);
-            localStorageConfig.pushTask(newTaskObject);
-            tasksCard.showInbox();
+        let taskObject = createTask(taskText, taskProjectName)
+        localStorageConfig.pushTask(taskObject, taskProjectName)
+        if (taskProjectName) {
+            tasksCard.showProject(taskProjectName);
         } else {
-            let newTaskObject = createTask(textFieldValue, projectFieldValue);
-            localStorageConfig.pushTask(newTaskObject, projectFieldValue)
-            tasksCard.showProject(projectFieldValue);
+            tasksCard.showInbox();
+        }
+    }
+
+    const _validateForm = () => {
+        /**Passes form field values into _validateFormIntoStorage().*/
+        let taskText = document.querySelector('#addTaskInputText').value;
+        let taskProject = document.querySelector('#addTaskInputProject').value;
+        if (taskProject === 'None') {
+            _validateFormIntoStorage(taskText);
+        } else {
+            _validateFormIntoStorage(taskText, taskProject);
         }
     }
 
@@ -92,59 +96,61 @@ const addTaskModal = (() => {
         cancelButton.addEventListener('click', _resetForm);
     }
 
-    const _getResetProjectsDropdown = () => {
+    const _getResetProjectField = () => {
         /**Returns cleared #addTaskInputProject dropdown menu with an appended 
          * 'None' option.*/
-        let projectsDropdown = document.querySelector('#addTaskInputProject');
-        projectsDropdown.innerHTML = '';
+        let projectField = document.querySelector('#addTaskInputProject');
+        projectField.innerHTML = '';
 
         let noneDropdownOption = document.createElement('option');
         noneDropdownOption.innerHTML += 'None';
-        projectsDropdown.appendChild(noneDropdownOption);
+        projectField.appendChild(noneDropdownOption);
 
-        return projectsDropdown;
+        return projectField;
     }
 
-    const updateProjectsDropdown = () => {
+    const updateProjectField = () => {
         /**Resets #addTaskInputProject dropdown menu and adds all current
          * projects to it as choices.*/
-        let projectsDropdown = _getResetProjectsDropdown();
+        let projectField = _getResetProjectField();
         let projects = localStorageConfig.getLocalStorageAsObject().projects;
         for (let i = 0; i < projects.length; i++) {
             let newDropdownItem = document.createElement('option');
             newDropdownItem.innerHTML = projects[i].name;
-            projectsDropdown.appendChild(newDropdownItem);
+            projectField.appendChild(newDropdownItem);
         }
     }
 
-    const setProjectsDropdown = () => {
+    const setProjectField = () => {
         /**Makes selected option in "Projects" dropdown menu equal to current
          * project being viewed. Sets selected option to "None" if current 
          * view is Inbox.*/
-        let projectNameDisplay = (
-            document.querySelector('#tasksCardProjectNameDisplay').innerHTML);
-        let projectsDropdown = (
-            document.querySelector("#addTaskInputProject"));
-        let projectsDropdownOptions = (
-            projectsDropdown.querySelectorAll('option'));
+        let projectNameDisplay = document.querySelector(
+            '#tasksCardProjectNameDisplay').innerHTML;
+        let projectField = document.querySelector("#addTaskInputProject");
+        let projectFieldOptions = projectField.querySelectorAll('option');
 
-        for (let i = 0; i < projectsDropdownOptions.length; i++) {
-            let optionNode = projectsDropdownOptions[i];
-            if (projectNameDisplay === optionNode.value) {
-                optionNode.selected = true;
+        for (let i = 0; i < projectFieldOptions.length; i++) {
+            if (projectNameDisplay === projectFieldOptions[i].value) {
+                projectFieldOptions[i].selected = true;
                 break;
             } else if (projectNameDisplay === 'Inbox') {
-                projectsDropdown.value = 'None';
+                projectField.value = 'None';
                 break;
             }
         }
     }
 
+    const openAsEditTaskModal = (taskObject) => {
+        console.log(taskObject);
+    }
+
     _setUpAddTaskButton();
     _setUpCancelButton();
-    updateProjectsDropdown();
+    updateProjectField();
 
-    return { updateProjectsDropdown, setProjectsDropdown }
+    return { updateProjectField, setProjectField, 
+        openAsEditTaskModal }
 })();
 
 export { addTaskModal }

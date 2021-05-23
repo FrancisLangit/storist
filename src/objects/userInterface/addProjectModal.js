@@ -29,7 +29,7 @@ const addProjectModal = (() => {
         inboxButton.setStyleAsOutline();
         projectsButton.updateDropdownMenu();
         projectsButton.updateStyle(projectName);
-        addTaskModal.updateProjectsDropdown();
+        addTaskModal.updateProjectField();
         tasksCard.showProject(projectName);
     }
 

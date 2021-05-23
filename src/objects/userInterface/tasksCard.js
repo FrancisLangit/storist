@@ -34,8 +34,9 @@ const createTaskNode = (taskObject) => {
         if (taskObject.isDone) {
             taskText.classList.add('taskDone');
         }
-        taskText.setAttribute('data-bs-toggle', 'modal');
-        taskText.setAttribute('data-bs-target', '#editTaskModal');
+        taskText.addEventListener('click', () => {
+            addTaskModal.openAsEditTaskModal(taskObject);
+        });
         return taskText;
     }
 
@@ -127,7 +128,7 @@ const tasksCard = (() => {
          * "Projects" dropdown menu of the "Add Task" modal.*/
         let addTaskButton = document.querySelector('#tasksCardAddTaskButton');
         addTaskButton.addEventListener('click', () => {
-            addTaskModal.setProjectsDropdown();
+            addTaskModal.setProjectField();
         });
     }
 
