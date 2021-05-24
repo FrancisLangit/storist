@@ -51,7 +51,13 @@ body {
         }
 
         .taskDone {
-            text-decoration: line-through;
+            .task-text {
+                text-decoration: line-through;
+            }
+
+            .task-checkbox {
+                background-color: rgb(175, 175, 175);
+            }
         }
     }
 }

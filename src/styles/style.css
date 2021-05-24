@@ -54,8 +54,12 @@ body div.card {
   text-decoration: underline;
 }
 
-#tasksCardTasksDisplay .taskDone {
+#tasksCardTasksDisplay .taskDone .task-text {
   text-decoration: line-through;
+}
+
+#tasksCardTasksDisplay .taskDone .task-checkbox {
+  background-color: #afafaf;
 }
 
 #footer a {

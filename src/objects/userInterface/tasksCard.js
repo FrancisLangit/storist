@@ -15,9 +15,7 @@ const createTaskNode = (taskObject) => {
         checkBox.classList.add('task-checkbox');
 
         checkBox.addEventListener('click', () => {
-            let taskText = checkBox.parentNode.querySelector('.task-text');
-            taskText.classList.toggle('taskDone');
-
+            checkBox.parentNode.classList.toggle('taskDone')
             taskObject.isDone = !taskObject.isDone;
             localStorageConfig.editTask(taskObject);
         });
@@ -31,9 +29,6 @@ const createTaskNode = (taskObject) => {
         let taskText = document.createElement('div');
         taskText.textContent = taskObject.text;
         taskText.classList.add('task-text', 'card-text');
-        if (taskObject.isDone) {
-            taskText.classList.add('taskDone');
-        }
         taskText.addEventListener('click', () => {
             addTaskModal.openAsEditTaskModal(taskObject);
         });
@@ -47,6 +42,9 @@ const createTaskNode = (taskObject) => {
     taskNode.append(taskCheckBox, taskText);
     taskNode.id = taskObject.id;
     taskNode.classList.add('task');
+    if (taskObject.isDone) {
+        taskNode.classList.add('taskDone');
+    }
 
     return taskNode;
 }
