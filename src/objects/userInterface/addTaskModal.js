@@ -100,11 +100,13 @@ const addTaskModal = (() => {
     }
 
     const _reset = () => {
-        /**Resets modal's form fields, Add Task button, and header.*/
+        /**Resets modal's form fields, buttons, and header.*/
         _resetFormFields()
         _resetAddTaskButton();
         _setUpAddTaskButton();
         document.querySelector('#addTaskModalLabel').innerHTML = 'Add Task';
+        document.querySelector(
+            '#editTaskDeleteButton').classList.add('d-none');
     }
 
     const _setUpCancelButton = () => {
@@ -165,6 +167,8 @@ const addTaskModal = (() => {
         document.querySelector('#addTaskButton').innerHTML = 'Edit Task';
         document.querySelector('#addTaskInputText').value = textFieldValue;
         document.querySelector('#addTaskInputProject').disabled = true;
+        document.querySelector(
+            '#editTaskDeleteButton').classList.remove('d-none');
         setProjectField();
     }
 
@@ -230,6 +234,7 @@ const addTaskModal = (() => {
         deleteTaskButton.addEventListener('click', () => {
             localStorageConfig.deleteTask(taskObject);
             _showEditedTask(taskObject);
+            _reset();
         });
     }
 
