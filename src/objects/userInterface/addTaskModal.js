@@ -6,7 +6,7 @@ import { tasksCard } from './tasksCard.js';
 
 const addTaskModal = (() => {
     /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
-    let _modalNode = new bootstrap.Modal(
+    let modalNode = new bootstrap.Modal(
         document.querySelector('#addTaskModal'), { keyboard: false });
 
     const _getRequiredInputs = () => {
@@ -62,14 +62,17 @@ const addTaskModal = (() => {
         }
     }
 
-    const _resetForm = () => {
-        /**Resets all field in modal's form.*/
+    const _reset = () => {
+        /**Resets all fields in modal's form as well as its header and Add
+         * Task button.*/
         let form = document.querySelector('#addTaskForm');
         let formInputs = form.getElementsByTagName('input');
         for (let i = 0; i < formInputs.length; i++) {
             formInputs[i].value = '';
             formInputs[i].classList.remove('is-invalid');
         }
+        document.querySelector('#addTaskModalLabel').innerHTML = 'Add Task';
+        document.querySelector('#addTaskButton').innerHTML = 'Add Task';
     }
 
     const _setUpAddTaskButton = () => {
@@ -81,8 +84,8 @@ const addTaskModal = (() => {
         addTaskButton.addEventListener('click', () => {
             if (_isRequiredInputsFilled()) {
                 _validateForm();
-                _modalNode.hide();
-                _resetForm();
+                modalNode.hide();
+                _reset();
             } else {
                 _invalidateForm();
             }
@@ -93,7 +96,7 @@ const addTaskModal = (() => {
         /**Adds click event listener to modal's "Cancel" button that makes it
          * reset the modal before closing it.*/
         let cancelButton = document.querySelector('#addTaskCancelButton');
-        cancelButton.addEventListener('click', _resetForm);
+        cancelButton.addEventListener('click', _reset);
     }
 
     const _getResetProjectField = () => {
@@ -141,16 +144,11 @@ const addTaskModal = (() => {
         }
     }
 
-    const openAsEditTaskModal = (taskObject) => {
-        console.log(taskObject);
-    }
-
     _setUpAddTaskButton();
     _setUpCancelButton();
     updateProjectField();
 
-    return { updateProjectField, setProjectField, 
-        openAsEditTaskModal }
+    return { modalNode, updateProjectField, setProjectField }
 })();
 
 export { addTaskModal }
