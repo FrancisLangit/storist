@@ -6,7 +6,7 @@ import { tasksCard } from './tasksCard.js';
 
 const addTaskModal = (() => {
     /**"Add Task" modal that appears when "+ Add Task" button is clicked.*/
-    let modalNode = new bootstrap.Modal(
+    let _modalNode = new bootstrap.Modal(
         document.querySelector('#addTaskModal'), { keyboard: false });
 
     const _getRequiredInputs = () => {
@@ -62,34 +62,48 @@ const addTaskModal = (() => {
         }
     }
 
-    const _reset = () => {
-        /**Resets all fields in modal's form as well as its header and Add
-         * Task button.*/
+    const _resetAddTaskButton = () => {
+        /**Removes all event listeners from the Add Task button. */
+        let addTaskButton = document.querySelector('#addTaskButton');
+        let addTaskButtonClone = addTaskButton.cloneNode(true);
+        let addTaskButtonParent = addTaskButton.parentNode;
+        addTaskButtonParent.replaceChild(addTaskButtonClone, addTaskButton);
+    }
+
+
+    const _setUpAddTaskButton = () => {
+        /**Adds click event listener to "Add Task" button. Makes it check 
+         * modal's form. If user input valid, calls _validateForm() and 
+         * closes and resets the modal. Otherwise, calls _invalidateForm().*/
+        let addTaskButton = document.querySelector('#addTaskButton');
+        addTaskButton.innerHTML = 'Add Task';
+        addTaskButton.addEventListener('click', () => {
+            if (_isRequiredInputsFilled()) {
+                _validateForm();
+                _modalNode.hide();
+                _reset();
+            } else {
+                _invalidateForm();
+            }
+        });
+    }
+
+    const _resetFormFields = () => {
+        /**Resets modals form fields.*/
         let form = document.querySelector('#addTaskForm');
         let formInputs = form.getElementsByTagName('input');
         for (let i = 0; i < formInputs.length; i++) {
             formInputs[i].value = '';
             formInputs[i].classList.remove('is-invalid');
         }
-        document.querySelector('#addTaskModalLabel').innerHTML = 'Add Task';
-        document.querySelector('#addTaskButton').innerHTML = 'Add Task';
     }
 
-    const _setUpAddTaskButton = () => {
-        /**Adds click event listener to "Add Task" button that makes it check
-         * the modal's form. If user input valid, calls _validateForm() and 
-         * closes and resets the modal. Otherwise, _invalidateForm() is 
-         * called.*/
-        let addTaskButton = document.querySelector('#addTaskButton');
-        addTaskButton.addEventListener('click', () => {
-            if (_isRequiredInputsFilled()) {
-                _validateForm();
-                modalNode.hide();
-                _reset();
-            } else {
-                _invalidateForm();
-            }
-        });
+    const _reset = () => {
+        /**Resets modal's form fields, Add Task button, and header.*/
+        _resetFormFields()
+        _resetAddTaskButton();
+        _setUpEditTaskButton();
+        document.querySelector('#addTaskModalLabel').innerHTML = 'Add Task';
     }
 
     const _setUpCancelButton = () => {
@@ -144,11 +158,68 @@ const addTaskModal = (() => {
         }
     }
 
+    const _styleAsEditTaskModal = (textFieldValue) => {
+        /**Styles the modal as an Edit Task Modal.*/
+        document.querySelector('#addTaskModalLabel').innerHTML = 'Edit Task';
+        document.querySelector('#addTaskButton').innerHTML = 'Edit Task';
+        document.querySelector('#addTaskInputText').value = textFieldValue;
+        setProjectField();
+    }
+
+    const _getEditedTaskObject = (taskObject) => {
+        /**Returns a task object with paremeters set to current values of 
+         * modal form's input fields.
+         * 
+         * Args:
+         *  taskObject (object) : Task object to be edited.*/
+        let taskVal = document.querySelector('#addTaskInputText').value;
+        let projectVal = document.querySelector('#addTaskInputProject').value;
+
+        taskObject.text = taskVal;
+        if (projectVal !== 'None') {
+            taskObject.parentProjectName = projectVal;
+        }
+
+        return taskObject;
+    }
+
+    const _setUpEditTaskButton = (taskObject) => {
+        /**Turns Add Task button into Edit Task button. Such replaces task 
+         * object passed with another task object made out of current input 
+         * field values.
+         * 
+         * Args: 
+         *  taskObject (object) : Task object to be edited.*/
+        _resetAddTaskButton();
+        let addTaskButton = document.querySelector('#addTaskButton');
+        addTaskButton.addEventListener('click', () => {
+            if (_isRequiredInputsFilled()) {
+                let editedTaskObject = _getEditedTaskObject(taskObject);
+                localStorageConfig.editTask(editedTaskObject);
+                _modalNode.hide();
+                _reset();
+            } else {
+                _invalidateForm();
+            }
+        });
+    }
+
+    const openAsEditTaskModal = (taskObject) => {
+        /**Opens the modal as an "Edit Task" modal with functionality built 
+         * to edit task object opened.
+         * 
+         * Args:
+         *  taskObject (object): Task object to be edited*/
+        _styleAsEditTaskModal(taskObject.text);
+        _setUpEditTaskButton(taskObject);
+        _modalNode.show();
+    }
+
     _setUpAddTaskButton();
     _setUpCancelButton();
     updateProjectField();
 
-    return { modalNode, updateProjectField, setProjectField }
+    return { updateProjectField, setProjectField, openAsEditTaskModal }
 })();
 
 export { addTaskModal }

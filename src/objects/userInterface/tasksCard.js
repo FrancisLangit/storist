@@ -1,5 +1,4 @@
 import { addTaskModal } from './addTaskModal.js';
-import { editTaskModal } from './editTaskModal.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
 
@@ -36,7 +35,7 @@ const createTaskNode = (taskObject) => {
             taskText.classList.add('taskDone');
         }
         taskText.addEventListener('click', () => {
-            editTaskModal.open(taskObject);
+            addTaskModal.openAsEditTaskModal(taskObject);
         });
         return taskText;
     }
