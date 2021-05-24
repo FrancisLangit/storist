@@ -72,6 +72,15 @@ const localStorageConfig = (() => {
         _updateLocalStorage(storage);
     }
 
+    const _isTaskInArray = (taskObject, arrayOfTaskObjects) => {
+        for (let i = 0; i < arrayOfTaskObjects.length; i++) {
+            if (taskObject.id === arrayOfTaskObjects.id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     const _replaceTaskInArray = (newTaskObject, arrayOfTaskObjects) => {
         /**Replaces a task object with another in an array of task objects.
          * 
@@ -79,7 +88,7 @@ const localStorageConfig = (() => {
          *  newTaskObject (object) : Task object to replace with.
          *  arrayOfTaskObjects (array) : Array of made up of task objects.*/
         return arrayOfTaskObjects.map(
-            task => (task.id === newTaskObject.id) ? newTaskObject: task);
+            task => (task.id === newTaskObject.id) ? newTaskObject : task);
     }
 
     const editTask = (newTaskObject) => {

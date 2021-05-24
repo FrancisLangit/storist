@@ -96,6 +96,7 @@ const addTaskModal = (() => {
             formInputs[i].value = '';
             formInputs[i].classList.remove('is-invalid');
         }
+        document.querySelector('#addTaskInputProject').disabled = false;
     }
 
     const _reset = () => {
@@ -163,6 +164,7 @@ const addTaskModal = (() => {
         document.querySelector('#addTaskModalLabel').innerHTML = 'Edit Task';
         document.querySelector('#addTaskButton').innerHTML = 'Edit Task';
         document.querySelector('#addTaskInputText').value = textFieldValue;
+        document.querySelector('#addTaskInputProject').disabled = true;
         setProjectField();
     }
 
@@ -176,7 +178,9 @@ const addTaskModal = (() => {
         let projectVal = document.querySelector('#addTaskInputProject').value;
 
         taskObject.text = taskVal;
-        if (projectVal !== 'None') {
+        if (projectVal === 'None') {
+            delete taskObject.parentProjectName;
+        } else {
             taskObject.parentProjectName = projectVal;
         }
 
