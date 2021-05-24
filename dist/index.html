@@ -240,12 +240,23 @@
                 <!-- Buttons -->
                 <div class="modal-footer">
                     <button 
+                        id="editTaskDeleteTaskButton" 
+                        type="button" 
+                        class="btn btn-outline-danger me-auto"
+                        data-bs-dismiss="modal"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteTaskModal">
+                            Delete Task
+                    </button>
+
+                    <button 
                         id="addTaskCancelButton" 
                         type="button" 
                         class="btn btn-outline-secondary" 
                         data-bs-dismiss="modal">
                             Cancel
                     </button>
+
                     <button 
                         id="addTaskButton" 
                         type="button" 

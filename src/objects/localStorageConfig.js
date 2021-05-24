@@ -72,15 +72,6 @@ const localStorageConfig = (() => {
         _updateLocalStorage(storage);
     }
 
-    const _isTaskInArray = (taskObject, arrayOfTaskObjects) => {
-        for (let i = 0; i < arrayOfTaskObjects.length; i++) {
-            if (taskObject.id === arrayOfTaskObjects.id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     const _replaceTaskInArray = (newTaskObject, arrayOfTaskObjects) => {
         /**Replaces a task object with another in an array of task objects.
          * 
@@ -108,6 +99,10 @@ const localStorageConfig = (() => {
                 newTaskObject, storage.projects[projectIndex].tasks);
         }
         _updateLocalStorage(storage);
+    }
+
+    const deleteTask = () => {
+        
     }
 
     return { getLocalStorageAsObject, getProjectObject, pushProject, 
