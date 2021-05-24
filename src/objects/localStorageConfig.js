@@ -82,6 +82,15 @@ const localStorageConfig = (() => {
             task => (task.id === newTaskObject.id) ? newTaskObject : task);
     }
 
+    const _getProjectIndex = (projectObjectName) => {
+        /**Returns index of project object passed in projects array of 
+         * localStorage.*/
+        let storage = getLocalStorageAsObject();
+        return storage.projects.findIndex(project => { 
+            return project.name === projectObjectName; 
+        });
+    }
+
     const editTask = (newTaskObject) => {
         /**Replaces a task object with its corresponding match in user's 
          * local storage.
@@ -92,9 +101,8 @@ const localStorageConfig = (() => {
         if (!newTaskObject.parentProjectName) {
             storage.inbox = _replaceTaskInArray(newTaskObject, storage.inbox);
         } else {
-            let projectIndex = storage.projects.findIndex(project => { 
-                return project.name === newTaskObject.parentProjectName; 
-            });
+            let projectIndex = ( 
+                _getProjectIndex(newTaskObject.parentProjectName));
             storage.projects[projectIndex].tasks = _replaceTaskInArray(
                 newTaskObject, storage.projects[projectIndex].tasks);
         }
@@ -107,7 +115,11 @@ const localStorageConfig = (() => {
             storage.inbox = ( 
                 storage.inbox.filter(task => task.id !== taskObject.id));
         } else {
-            console.log('Task in project!');
+            let projectIndex = ( 
+                _getProjectIndex(taskObject.parentProjectName));
+            let projectTasksArray = storage.projects[projectIndex].tasks;
+            storage.projects[projectIndex].tasks = projectTasksArray.filter(
+                task => task.id !== taskObject.id);
         }
         _updateLocalStorage(storage);
     }
