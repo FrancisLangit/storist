@@ -102,7 +102,7 @@ const addTaskModal = (() => {
         /**Resets modal's form fields, Add Task button, and header.*/
         _resetFormFields()
         _resetAddTaskButton();
-        _setUpEditTaskButton();
+        _setUpAddTaskButton();
         document.querySelector('#addTaskModalLabel').innerHTML = 'Add Task';
     }
 
@@ -223,7 +223,7 @@ const addTaskModal = (() => {
          * to edit task object opened.
          * 
          * Args:
-         *  taskObject (object): Task object to be edited*/
+         *  taskObject (object): Task object to be edited.*/
         _styleAsEditTaskModal(taskObject.text);
         _setUpEditTaskButton(taskObject);
         _modalNode.show();
