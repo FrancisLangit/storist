@@ -222,6 +222,13 @@ const addTaskModal = (() => {
         });
     }
 
+    const _setUpDeleteTaskButton = (taskObject) => {
+        let deleteTaskButton = document.querySelector('#deleteTaskButton');
+        deleteTaskButton.addEventListener('click', () => {
+            localStorageConfig.deleteTask(taskObject);
+        });
+    }
+
     const openAsEditTaskModal = (taskObject) => {
         /**Opens the modal as an "Edit Task" modal with functionality built 
          * to edit task object opened.
@@ -230,6 +237,7 @@ const addTaskModal = (() => {
          *  taskObject (object): Task object to be edited.*/
         _styleAsEditTaskModal(taskObject.text);
         _setUpEditTaskButton(taskObject);
+        _setUpDeleteTaskButton(taskObject);
         _modalNode.show();
     }
 

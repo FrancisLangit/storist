@@ -101,12 +101,19 @@ const localStorageConfig = (() => {
         _updateLocalStorage(storage);
     }
 
-    const deleteTask = () => {
-        
+    const deleteTask = (taskObject) => {
+        let storage = getLocalStorageAsObject();
+        if (!taskObject.parentProjectName) {
+            storage.inbox = ( 
+                storage.inbox.filter(task => task.id !== taskObject.id));
+        } else {
+            console.log('Task in project!');
+        }
+        _updateLocalStorage(storage);
     }
 
     return { getLocalStorageAsObject, getProjectObject, pushProject, 
-        pushTask, editTask }
+        pushTask, editTask, deleteTask }
 })();
 
 export { localStorageConfig }
