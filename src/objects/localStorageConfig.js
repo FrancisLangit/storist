@@ -101,25 +101,35 @@ const localStorageConfig = (() => {
         if (!newTaskObject.parentProjectName) {
             storage.inbox = _replaceTaskInArray(newTaskObject, storage.inbox);
         } else {
-            let projectIndex = ( 
-                _getProjectIndex(newTaskObject.parentProjectName));
-            storage.projects[projectIndex].tasks = _replaceTaskInArray(
-                newTaskObject, storage.projects[projectIndex].tasks);
+            let projIndex = _getProjectIndex(newTaskObject.parentProjectName);
+            storage.projects[projIndex].tasks = _replaceTaskInArray(
+                newTaskObject, storage.projects[projIndex].tasks);
         }
         _updateLocalStorage(storage);
     }
 
+    const _getFilteredTasksArray = (taskToFilterOut, tasksArrayToFilter) => {
+        /**Returns array with task object passed filtered out of it.
+         * 
+         * Args:
+         *  taskToFilterOut (object) : Task object to filter out of array.
+         *  tasksArrayToFilter (array): Array of task objects to filter task 
+         *      object out of.*/
+        return tasksArrayToFilter.filter(t => t.id !== taskToFilterOut.id);
+    }
+
     const deleteTask = (taskObject) => {
+        /**Deletes passed task object from localStorage.
+         * 
+         * Args:
+         *  taskObject (object): Task object to delete from localStorage.*/
         let storage = getLocalStorageAsObject();
         if (!taskObject.parentProjectName) {
-            storage.inbox = ( 
-                storage.inbox.filter(task => task.id !== taskObject.id));
+            storage.inbox = _getFilteredTasksArray(taskObject, storage.inbox);
         } else {
-            let projectIndex = ( 
-                _getProjectIndex(taskObject.parentProjectName));
-            let projectTasksArray = storage.projects[projectIndex].tasks;
-            storage.projects[projectIndex].tasks = projectTasksArray.filter(
-                task => task.id !== taskObject.id);
+            let projIndex = _getProjectIndex(taskObject.parentProjectName);
+            storage.projects[projIndex].tasks = _getFilteredTasksArray(
+                taskObject, storage.projects[projIndex].tasks)
         }
         _updateLocalStorage(storage);
     }
