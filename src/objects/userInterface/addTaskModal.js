@@ -183,6 +183,19 @@ const addTaskModal = (() => {
         return taskObject;
     }
 
+    const _showEditedTask = (editedTaskObject) => {
+        /**Updates contents of task card dependent on task object passed.
+         * 
+         * Args:
+         *  editedTaskObject (object) : Edited task object from 
+         *      _getEditedTaskObject method.*/
+        if (editedTaskObject.parentProjectName) {
+            tasksCard.showProject(editedTaskObject.parentProjectName);
+        } else {
+            tasksCard.showInbox();
+        }
+    }
+
     const _setUpEditTaskButton = (taskObject) => {
         /**Turns Add Task button into Edit Task button. Such replaces task 
          * object passed with another task object made out of current input 
@@ -196,6 +209,7 @@ const addTaskModal = (() => {
             if (_isRequiredInputsFilled()) {
                 let editedTaskObject = _getEditedTaskObject(taskObject);
                 localStorageConfig.editTask(editedTaskObject);
+                _showEditedTask(editedTaskObject);
                 _modalNode.hide();
                 _reset();
             } else {
