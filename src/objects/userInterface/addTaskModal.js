@@ -224,10 +224,12 @@ const addTaskModal = (() => {
 
     const _setUpDeleteTaskButton = (taskObject) => {
         /**Adds click event listener to Delete Task modal Delete Task button. 
-         * Makes it delete the specified task from localStorage.*/
+         * Makes it delete the specified task from localStorage and update UI 
+         * accordingly.*/
         let deleteTaskButton = document.querySelector('#deleteTaskButton');
         deleteTaskButton.addEventListener('click', () => {
             localStorageConfig.deleteTask(taskObject);
+            _showEditedTask(taskObject);
         });
     }
 
