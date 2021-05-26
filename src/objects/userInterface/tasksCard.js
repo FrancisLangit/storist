@@ -145,6 +145,7 @@ const tasksCard = (() => {
             inboxButton.setStyleAsFilled();
             projectsButton.updateStyle();
             projectsButton.updateDropdownMenu();
+            addTaskModal.updateProjectField();
             toggleDeleteProjectButton(true);
         });
     }

@@ -1,25 +1,17 @@
 body {
-  background-color: grey;
+  background-color: #2A2F33;
   display: block;
   margin: 0 auto;
   padding: 100px 0;
-  width: 500px;
+  width: 499px;
 }
 
 body div.card {
   margin-bottom: 12.5px;
 }
 
-#navCardHeader {
-  color: #464646;
-}
-
 #projectsButtonAddProject {
   cursor: pointer;
-}
-
-#tasksCardProjectNameDisplay {
-  color: #464646;
 }
 
 #tasksCardTasksDisplay {
@@ -46,7 +38,7 @@ body div.card {
 }
 
 #tasksCardTasksDisplay .task-checkbox:hover {
-  background-color: #f0f0f0;
+  background-color: #3c3c3c;
 }
 
 #tasksCardTasksDisplay .task-text:hover {
@@ -63,7 +55,7 @@ body div.card {
 }
 
 #footer a {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
