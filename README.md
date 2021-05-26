@@ -1,6 +1,6 @@
 ![Banner](readme_data/readme_banner.png)
 
-`storist` is a task-tracking web-application with featurestrongly inspired by [Todoist](https://todoist.com/app/), but with functionality that utilizes the [`localStorage` API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)  to save data on the user's browser as opposed to doing so on a server. It's tech-stack includes HTML, CSS, and JavaScript as well as the usage of [Bootstrap](https://getbootstrap.com/) for styling purposes and [Webpack](https://webpack.js.org/) for module bundling.
+`storist` is a task-tracking web-application with features strongly inspired by [Todoist](https://todoist.com/app/), but with functionality that utilizes the [`localStorage` API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)  to save data on the user's browser as opposed to doing so on a server. It's tech-stack includes HTML, CSS, and JavaScript as well as the usage of [Webpack](https://webpack.js.org/) for module bundling and [Bootstrap](https://getbootstrap.com/) for styling purposes.
 
 ## Installation
 
