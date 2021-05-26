@@ -43,10 +43,10 @@ Click on a project's "Delete Project" button. Such will open up a modal where th
 
 ![GIF demonstrating deletion of a project](readme_data/readme_usage_gif_5.gif)
 
-### Contributing
+## Contributing
 
 Pull requests are welcome for those that would like to make a contribution in the form of fixing a bug or adding a feature. For those that would like to apply major changes to the repository, we'd like to request that you open up an issue first and discuss the changes you'd like to make.
 
-### License
+## License
 
 [MIT License](https://github.com/FrancisLangit/storist/blob/main/LICENSE)
