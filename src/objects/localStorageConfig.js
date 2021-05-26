@@ -134,8 +134,20 @@ const localStorageConfig = (() => {
         _updateLocalStorage(storage);
     }
 
+    const deleteProject = (projectName) => {
+        /**Deletes a project from the local storage.
+         * 
+         * Args:
+         *  projectName (string): Name of the project to be deleted.*/
+        let storage = getLocalStorageAsObject();
+        let projectIndex = _getProjectIndex(projectName);
+        let project = storage.projects[projectIndex];
+        storage.projects = storage.projects.filter(p => p.id !== project.id);
+        _updateLocalStorage(storage);
+    }
+
     return { getLocalStorageAsObject, getProjectObject, pushProject, 
-        pushTask, editTask, deleteTask }
+        pushTask, editTask, deleteTask, deleteProject }
 })();
 
 export { localStorageConfig }
