@@ -130,6 +130,14 @@ const tasksCard = (() => {
         });
     }
 
+    const _setUpDeleteProjectButton = () => {
+        let deleteProjectButton = document.querySelector(
+            '#tasksCardDeleteProjectButton');
+        deleteProjectButton.addEventListener('click', () => {
+            console.log('Deleting project');
+        });
+    }
+
     const toggleDeleteProjectButton = (hideButton) => {
         /**Toggles "d-none" class of Delete Project button depending on 
          * argument passed.
@@ -148,6 +156,7 @@ const tasksCard = (() => {
 
     showInbox();
     _setUpAddTaskButton();
+    _setUpDeleteProjectButton();
 
     return { showInbox, showProject, toggleDeleteProjectButton };
 })();
