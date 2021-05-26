@@ -1,4 +1,5 @@
 import { addTaskModal } from './addTaskModal.js';
+import { inboxButton, projectsButton } from './navigationCard.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
 
@@ -130,10 +131,45 @@ const tasksCard = (() => {
         });
     }
 
+    const _setUpDeleteProjectButton = () => {
+        /**Adds click event listener to Delete Project button. Makes it delete 
+         * current project being viewed and updates user interface 
+         * accordingly.*/
+        let deleteProjectButton = document.querySelector(
+            '#deleteProjectButton');
+        deleteProjectButton.addEventListener('click', () => {
+            let projectName = document.querySelector(
+                '#tasksCardProjectNameDisplay').innerHTML;
+            localStorageConfig.deleteProject(projectName);
+            tasksCard.showInbox();
+            inboxButton.setStyleAsFilled();
+            projectsButton.updateStyle();
+            projectsButton.updateDropdownMenu();
+            toggleDeleteProjectButton(true);
+        });
+    }
+
+    const toggleDeleteProjectButton = (hideButton) => {
+        /**Toggles "d-none" class of Delete Project button depending on 
+         * argument passed.
+         * 
+         * Args:
+         *  hideButton (boolean): `true` if button is to be hidden. `false` if
+         *      otherwise.*/
+        let deleteProjectButton = document.querySelector(
+            '#tasksCardDeleteProjectButton');
+        if (hideButton) {
+            deleteProjectButton.classList.add('d-none');
+        } else {
+            deleteProjectButton.classList.remove('d-none');
+        }
+    }
+
     showInbox();
     _setUpAddTaskButton();
+    _setUpDeleteProjectButton();
 
-    return { showInbox, showProject };
+    return { showInbox, showProject, toggleDeleteProjectButton };
 })();
 
 export { tasksCard }

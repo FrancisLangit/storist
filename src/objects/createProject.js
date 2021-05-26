@@ -3,6 +3,7 @@ const createProject = (name) => {
      * 
      * Args:
      *  name (string) : Name of the project.*/
+    let id = 'project_' + Math.random().toString(36).substr(2, 9);
     let tasks = []
     
     const addTask = (task) => {
@@ -10,7 +11,7 @@ const createProject = (name) => {
         tasks.push(task); 
     }
 
-    return { name, tasks, addTask }
+    return { name, id, tasks, addTask }
 }
 
 export { createProject }
