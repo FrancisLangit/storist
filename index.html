@@ -24,6 +24,7 @@
                 class="btn btn-outline-light btn-sm">
                     Inbox
             </button>
+
             <!-- Projects Button-->
             <!-- Opens dropdown menu with links to projects. -->
             <div class="btn-group">
@@ -52,6 +53,16 @@
                     <div id="projectsButtonDropdownItems"></div>
                 </ul>
             </div>
+
+            <!-- Help Button -->
+            <button 
+                type="button" 
+                id="inboxButton" 
+                class="btn btn-outline-light btn-sm float-end"
+                data-bs-toggle="modal" 
+                data-bs-target="#helpModal">
+                    Help?
+            </button>
         </div>
     </div>
 
@@ -98,14 +109,15 @@
     </div>
 
     <!-- Footer Card -->
-    <div id="footer" class="card bg-dark border-light">
-        <div class="card-body text-white">
+    <div id="footer" class="card text-white bg-dark border-light">
+        <div class="card-body">
             <h4 id="footer-header" class="card-title">MIT License</h5>
             <h6 class="card-subtitle mb-2">
                 Copyright © 2021
             </h6>
             <hr />
             <a href="#">GitHub</a> • <a href="#">License</a>
+        </div>
     </div>
 
     <!-- "Add Project" Modal Form-->
@@ -348,6 +360,48 @@
                         class="btn btn-danger"
                         data-bs-dismiss="modal">
                             Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div 
+        class="modal fade" 
+        id="helpModal" 
+        tabindex="-1" 
+        aria-labelledby="helpModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 
+                        class="modal-title" 
+                        id="helpModalLabel">
+                            Help
+                    </h5>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                    <ul>
+                        <li>Use the top-most card to navigate.</li>
+                        <li>Use the "Projects" button to view and add projects.</li>
+                        <li>Use the "Add Task" button to create a new task.</li>
+                        <li>Use the "Delete Project" button to delete tasks.</li>
+                        <li>Click on a task to edit or delete it.</li>
+                    </ul>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button 
+                        type="button" 
+                        class="btn btn-outline-dark" 
+                        data-bs-dismiss="modal">
+                            Close
                     </button>
                 </div>
             </div>
