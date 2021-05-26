@@ -31,6 +31,7 @@ const addProjectModal = (() => {
         projectsButton.updateStyle(projectName);
         addTaskModal.updateProjectField();
         tasksCard.showProject(projectName);
+        tasksCard.toggleDeleteProjectButton();
     }
 
     const _invalidateForm = () => {

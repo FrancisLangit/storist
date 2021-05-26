@@ -33,6 +33,7 @@ const inboxButton = (() => {
                 projectsButton.updateStyle();
             }
             tasksCard.showInbox();
+            tasksCard.toggleDeleteProjectButton(true);
         });
     }
 
@@ -65,6 +66,7 @@ const projectsButton = (() => {
 
         aNode.addEventListener('click', () => {
             tasksCard.showProject(projectName);
+            tasksCard.toggleDeleteProjectButton();
             inboxButton.setStyleAsOutline();
             updateStyle(projectName);
         });
