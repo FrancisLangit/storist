@@ -1,5 +1,5 @@
 body {
-    background-color: grey;
+    background-color: #2A2F33;
     display: block;
     margin: 0 auto;
     padding: 100px 0;
@@ -10,19 +10,11 @@ body {
     }
 }
 
-#navCardHeader {
-    color: rgb(70, 70, 70);
-}
-
 #projectsButtonAddProject {
     cursor: pointer;
 }
 
 #tasksCard {
-    &ProjectNameDisplay {
-        color: rgb(70, 70, 70);
-    }
-
     &TasksDisplay {
         margin-bottom: 12.5px;
 
@@ -41,7 +33,7 @@ body {
             }
         
             &-checkbox:hover {
-                background-color: rgb(240, 240, 240);
+                background-color: rgb(60, 60, 60);
             }
 
             &-text:hover {
@@ -64,7 +56,7 @@ body {
 
 #footer {
     a {
-        color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
         text-decoration: none;
     }
     

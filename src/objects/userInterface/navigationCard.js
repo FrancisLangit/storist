@@ -8,16 +8,16 @@ const inboxButton = (() => {
         /**Replaces 'btn-outline-secondary' with 'btn-dark' in classList of 
          * inbox button node.*/
          let inboxButtonNode = document.querySelector('#inboxButton');
-         inboxButtonNode.classList.remove('btn-outline-secondary');
-         inboxButtonNode.classList.add('btn-dark');
+         inboxButtonNode.classList.remove('btn-outline-light');
+         inboxButtonNode.classList.add('btn-light');
     }
 
     const setStyleAsOutline  = () => {
         /**Replaces 'btn-dark' with 'btn-outline-secondary' in classList of 
          * inbox button node.*/
         let inboxButtonNode = document.querySelector('#inboxButton');
-        inboxButtonNode.classList.remove('btn-dark');
-        inboxButtonNode.classList.add('btn-outline-secondary');
+        inboxButtonNode.classList.remove('btn-light');
+        inboxButtonNode.classList.add('btn-outline-light');
     }
 
 
@@ -27,7 +27,7 @@ const inboxButton = (() => {
         let inboxButtonNode = document.querySelector('#inboxButton');
         inboxButtonNode.addEventListener('click', () => {
             let isStyleOutline = inboxButtonNode.classList.contains(
-                'btn-outline-secondary') 
+                'btn-outline-light')
             if (isStyleOutline) {
                 setStyleAsFilled();
                 projectsButton.updateStyle();
@@ -131,12 +131,12 @@ const projectsButton = (() => {
         let projectsButton = document.querySelector('#projectsButton');
         if (projectName) {
             projectsButton.innerHTML = `Project: ${projectName}`;
-            projectsButton.classList.remove('btn-outline-secondary');
-            projectsButton.classList.add('btn-dark');
+            projectsButton.classList.remove('btn-outline-light');
+            projectsButton.classList.add('btn-light');
         } else {
             projectsButton.innerHTML = 'Projects';
-            projectsButton.classList.remove('btn-dark');
-            projectsButton.classList.add('btn-outline-secondary');
+            projectsButton.classList.remove('btn-light');
+            projectsButton.classList.add('btn-outline-light');
         } 
     }
 
