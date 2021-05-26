@@ -4,7 +4,7 @@ import { createProject } from '../createProject.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
 import { addTaskModal } from './addTaskModal.js';
-import { projectsButton } from './navigationCard.js';
+import { inboxButton, projectsButton } from './navigationCard.js';
 import { tasksCard } from './tasksCard.js';
 
 const addProjectModal = (() => {
@@ -26,8 +26,10 @@ const addProjectModal = (() => {
             document.querySelector('#addProjectInputName').value);
         let projectObj = createProject(projectName);
         localStorageConfig.pushProject(projectObj);
+        inboxButton.setStyleAsOutline();
         projectsButton.updateDropdownMenu();
-        addTaskModal.updateProjectsDropdown();
+        projectsButton.updateStyle(projectName);
+        addTaskModal.updateProjectField();
         tasksCard.showProject(projectName);
     }
 

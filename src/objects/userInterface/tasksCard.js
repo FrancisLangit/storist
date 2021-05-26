@@ -1,30 +1,57 @@
+import { addTaskModal } from './addTaskModal.js';
 import { localStorageConfig } from '../localStorageConfig.js';
 
-import { addTaskModal } from './addTaskModal.js';
+
+const createTaskNode = (taskObject) => {
+    /**Returns div node constructed out of a task object.
+     * 
+     * Args:
+     *  taskObject (object) : Task object holding data that the div node
+     *      will be constructed out of.*/
+
+    const _createCheckBox = () => {
+        /**Returns div node with class "task-checkbox".*/
+        let checkBox = document.createElement('div');
+        checkBox.classList.add('task-checkbox');
+
+        checkBox.addEventListener('click', () => {
+            checkBox.parentNode.classList.toggle('taskDone')
+            taskObject.isDone = !taskObject.isDone;
+            localStorageConfig.editTask(taskObject);
+        });
+
+        return checkBox;
+    }
+
+    const _createTaskText = () => {
+        /**Returns div node with class "task-text", textContent equal to
+         * text property of taskObject.*/
+        let taskText = document.createElement('div');
+        taskText.textContent = taskObject.text;
+        taskText.classList.add('task-text', 'card-text');
+        taskText.addEventListener('click', () => {
+            addTaskModal.openAsEditTaskModal(taskObject);
+        });
+        return taskText;
+    }
+
+    let taskCheckBox = _createCheckBox();
+    let taskText = _createTaskText();
+
+    let taskNode = document.createElement('div');
+    taskNode.append(taskCheckBox, taskText);
+    taskNode.id = taskObject.id;
+    taskNode.classList.add('task');
+    if (taskObject.isDone) {
+        taskNode.classList.add('taskDone');
+    }
+
+    return taskNode;
+}
 
 const tasksCard = (() => {
     /**Card showing currently displayed tasks, either from user's Inbox or a
      * specific project of theirs. */
-
-    const _createTaskNode = (taskObject) => {
-        /**Returns div node constructed out of a task object.
-         * 
-         * Args:
-         *  taskObject (object) : Task object holding data that the div node
-         *      will be constructed out of.*/
-        let taskCheckBox = document.createElement('div');
-        taskCheckBox.classList.add('task-checkbox');
-
-        let taskText = document.createElement('div');
-        taskText.classList.add('task-text');
-        taskText.textContent = taskObject.text;
-
-        let taskNode = document.createElement('div');
-        taskNode.classList.add('task', 'card-text');
-        taskNode.append(taskCheckBox, taskText);
-
-        return taskNode;
-    }
 
     const _updateProjectNameDisplay = (projectName) => {
         /**Updates inner HTML of #tasksCardProjectNameDisplay.
@@ -67,7 +94,7 @@ const tasksCard = (() => {
         if (arrayOfTaskObjects.length > 0) {
             _toggleNoTasksNode();
             for (let i = 0; i < arrayOfTaskObjects.length; i++) {
-                tasksDiv.append(_createTaskNode(arrayOfTaskObjects[i]));
+                tasksDiv.append(createTaskNode(arrayOfTaskObjects[i]));
             }
         } else {
             _toggleNoTasksNode(true);
@@ -99,7 +126,7 @@ const tasksCard = (() => {
          * "Projects" dropdown menu of the "Add Task" modal.*/
         let addTaskButton = document.querySelector('#tasksCardAddTaskButton');
         addTaskButton.addEventListener('click', () => {
-            addTaskModal.setProjectsDropdown();
+            addTaskModal.setProjectField();
         });
     }
 
