@@ -14,19 +14,14 @@
 
 <body>
     <!-- Navigation -->
-    <div ud="navCard" class="card">
+    <div id="navCard" class="card text-white bg-dark border-light">
         <div class="card-body">
-            <h2 
-                id="navCardHeader" 
-                class="card-title">
-                    Storist
-            </h2>
             <!-- Inbox Button -->
             <!-- Makes "Tasks" card only show tasks stored in Inbox. -->
             <button 
                 type="button" 
                 id="inboxButton" 
-                class="btn btn-outline-secondary btn-sm">
+                class="btn btn-outline-light btn-sm">
                     Inbox
             </button>
             <!-- Projects Button-->
@@ -35,7 +30,7 @@
                 <button 
                     id="projectsButton" 
                     type="button" 
-                    class="btn btn-outline-secondary btn-sm dropdown-toggle" 
+                    class="btn btn-outline-light btn-sm dropdown-toggle" 
                     data-bs-toggle="dropdown" 
                     aria-expanded="false">
                         Projects
@@ -61,7 +56,7 @@
     </div>
 
     <!-- Tasks -->
-    <div class="card">
+    <div class="card text-white bg-dark border-light">
         <div class="card-body">
             <!-- Tasks Card Header -->
             <!-- Displays project currently being viewed. -->
@@ -85,7 +80,7 @@
             <button 
                 type="button" 
                 id="tasksCardAddTaskButton" 
-                class="btn btn-outline-secondary btn-sm" 
+                class="btn btn-outline-light btn-sm" 
                 data-bs-toggle="modal" 
                 data-bs-target="#addTaskModal">
                     + Add Task
@@ -103,18 +98,14 @@
     </div>
 
     <!-- Footer Card -->
-    <div id="footer" class="card">
-        <div class="card-body">
-            <h5 class="card-title">MIT License</h5>
-            <h6 class="card-subtitle mb-2 text-muted">
+    <div id="footer" class="card bg-dark border-light">
+        <div class="card-body text-white">
+            <h4 id="footer-header" class="card-title">MIT License</h5>
+            <h6 class="card-subtitle mb-2">
                 Copyright © 2021
             </h6>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <a href="#">GitHub</a> • <a href="#">License</a>
-            </li>
-        </ul>
+            <hr />
+            <a href="#">GitHub</a> • <a href="#">License</a>
     </div>
 
     <!-- "Add Project" Modal Form-->
